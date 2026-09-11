@@ -1,0 +1,2686 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>সেরা বাজার — বিশ্বস্ত অনলাইন মার্কেটপ্লেস</title>
+    <meta name="theme-color" content="#0d3b21">
+    <meta name="description" content="সেরা বাজার — ক্রেতা, বিক্রেতা ও অ্যাডমিনের জন্য সম্পূর্ণ অনলাইন মার্কেটপ্লেস।">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ============================================================
+           ROOT VARIABLES
+           ============================================================ */
+        :root {
+            --primary: #0f6b3e;
+            --primary-mid: #15803d;
+            --primary-light: #22c55e;
+            --primary-dark: #064e24;
+            --accent: #f59e0b;
+            --accent-glow: rgba(245,158,11,0.35);
+            --red: #dc2626;
+            --red-dark: #991b1b;
+            --green: #059669;
+            --green-light: #d1fae5;
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --white: #ffffff;
+            --off-white: #f8fafc;
+            --gray-50: #f1f5f9;
+            --gray-100: #e2e8f0;
+            --gray-200: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow: 0 4px 16px rgba(0,0,0,0.10);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+            --shadow-xl: 0 16px 64px rgba(0,0,0,0.20);
+            --radius: 14px;
+            --radius-sm: 8px;
+            --radius-lg: 24px;
+            --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+            --font: 'Hind Siliguri', sans-serif;
+            --safe-b: env(safe-area-inset-bottom,0px);
+            --safe-t: env(safe-area-inset-top,0px);
+            color-scheme: light;
+        }
+
+        body.dark-mode {
+            --off-white: #0f172a;
+            --white: #1e293b;
+            --gray-50: #1e293b;
+            --gray-100: #334155;
+            --gray-200: #475569;
+            --gray-400: #94a3b8;
+            --gray-600: #cbd5e1;
+            --gray-700: #e2e8f0;
+            --gray-800: #f1f5f9;
+            --gray-900: #f8fafc;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow: 0 4px 16px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+            --shadow-xl: 0 16px 64px rgba(0,0,0,0.6);
+            color-scheme: dark;
+        }
+
+        body.dark-mode .product-card,
+        body.dark-mode .category-card,
+        body.dark-mode .seller-card,
+        body.dark-mode .sidebar-widget,
+        body.dark-mode .card,
+        body.dark-mode .modal-content,
+        body.dark-mode .chat-layout,
+        body.dark-mode .user-dropdown,
+        body.dark-mode .notif-panel { background: var(--white); border-color: var(--gray-200); }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font);
+            background: var(--off-white);
+            color: var(--gray-800);
+            font-size: 14px;
+            line-height: 1.65;
+            transition: background 0.25s, color 0.25s;
+            overflow-x: hidden;
+        }
+        ::selection { background: var(--accent); color: var(--primary); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--gray-50); }
+        ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-light); }
+        a { text-decoration: none; color: inherit; }
+        button { font-family: inherit; cursor: pointer; }
+        input, select, textarea { font-family: inherit; }
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .text-muted { color: var(--gray-400); }
+        .text-sm { font-size: 12px; }
+        .font-bold { font-weight: 700; }
+        .mt-2 { margin-top: 8px; }
+        .mt-4 { margin-top: 16px; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .gap-2 { gap: 8px; }
+        .w-full { width: 100%; }
+        .p-0 { padding: 0 !important; }
+
+        /* ============================== LOADING ============================== */
+        #loadingScreen {
+            position: fixed; inset: 0; z-index: 9999;
+            background: linear-gradient(145deg, #064e24 0%, #0f6b3e 40%, #022c14 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease; overflow: hidden;
+        }
+        #loadingScreen.fade-out { opacity: 0; pointer-events: none; }
+        .load-particles { position: absolute; inset: 0; overflow: hidden; }
+        .load-particle {
+            position: absolute; width: 4px; height: 4px; background: rgba(255,255,255,0.12);
+            border-radius: 50%; animation: particle-float 7s ease-in-out infinite;
+        }
+        .load-particle:nth-child(1){left:10%;top:20%;animation-delay:0s}
+        .load-particle:nth-child(2){left:25%;top:70%;animation-delay:1s;width:6px;height:6px}
+        .load-particle:nth-child(3){left:60%;top:10%;animation-delay:2s}
+        .load-particle:nth-child(4){left:80%;top:75%;animation-delay:0.5s;width:5px;height:5px}
+        .load-particle:nth-child(5){left:40%;top:85%;animation-delay:3s}
+        .load-particle:nth-child(6){left:70%;top:45%;animation-delay:1.5s;width:7px;height:7px;background:rgba(245,158,11,0.25)}
+        @keyframes particle-float { 0%,100%{transform:translateY(0) scale(1); opacity:0.2} 50%{transform:translateY(-40px) scale(1.4); opacity:0.7} }
+        .load-inner { position: relative; z-index: 1; text-align: center; }
+        .load-logo-ring { position: relative; width: 100px; height: 100px; margin: 0 auto 20px; }
+        .load-ring { position: absolute; inset: 0; border-radius: 50%; border: 2.5px solid transparent; border-top-color: var(--accent); animation: spin 1.2s linear infinite; }
+        .load-ring-2 { position: absolute; inset: 12px; border-radius: 50%; border: 2.5px solid transparent; border-bottom-color: rgba(255,255,255,0.2); animation: spin 1.8s linear infinite reverse; }
+        .load-logo-core { position: absolute; inset: 20px; background: rgba(255,255,255,0.06); border-radius: 50%; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 30px rgba(245,158,11,0.15); color: #fff; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .load-brand h1 { color: #fff; font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; }
+        .load-brand h1 em { color: var(--accent); font-style: normal; }
+        .load-brand p { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 4px; }
+        .load-progress-wrap { width: 260px; margin: 24px auto 0; }
+        .load-track { height: 2.5px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; position: relative; }
+        .load-bar { height: 100%; background: linear-gradient(90deg, var(--primary-light), var(--accent)); border-radius: 4px; width: 0%; transition: width 2.6s ease; position: relative; }
+        .load-bar::after { content: ''; position: absolute; right: 0; top: -2px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+        .load-msg { color: rgba(255,255,255,0.4); font-size: 0.65rem; text-align: center; margin-top: 10px; letter-spacing: 0.3px; }
+        .load-dots { display: flex; gap: 6px; justify-content: center; margin-top: 16px; }
+        .load-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.2); animation: dot-bounce 1.4s ease-in-out infinite; }
+        .load-dot:nth-child(2) { animation-delay: 0.2s; }
+        .load-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dot-bounce { 0%,80%,100%{transform:scale(0.5); opacity:0.3} 40%{transform:scale(1.2); opacity:1; background:var(--accent)} }
+
+        /* ============================== AUTH ============================== */
+        #authPage {
+            min-height: 100vh;
+            background: linear-gradient(150deg, #022c14 0%, #0f6b3e 50%, #064e24 100%);
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px; position: fixed; inset: 0; z-index: 800; overflow-y: auto;
+        }
+        .auth-close {
+            position: absolute; top: 16px; right: 16px; z-index: 2;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 16px; transition: var(--transition);
+        }
+        .auth-close:hover { background: rgba(255,255,255,0.18); }
+        .auth-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+        .auth-orb-1 { width: 500px; height: 500px; background: rgba(245,158,11,0.06); top: -120px; right: -120px; }
+        .auth-orb-2 { width: 400px; height: 400px; background: rgba(34,197,94,0.06); bottom: -100px; left: -80px; }
+        .auth-container {
+            position: relative; z-index: 1;
+            background: rgba(255,255,255,0.96); border-radius: 28px;
+            box-shadow: 0 32px 100px rgba(0,0,0,0.5);
+            overflow: hidden; max-width: 960px; width: 100%;
+            display: grid; grid-template-columns: 1fr 1fr;
+        }
+        body.dark-mode .auth-container { background: var(--white); }
+        .auth-left {
+            background: linear-gradient(160deg, #022c14 0%, var(--primary) 50%, #064e24 100%);
+            padding: 44px 34px; display: flex; flex-direction: column; justify-content: space-between;
+            color: #fff; position: relative; overflow: hidden;
+        }
+        .auth-left::before { content: 'সেরা বাজার'; position: absolute; font-size: 8rem; font-weight: 900; color: rgba(255,255,255,0.025); user-select: none; bottom: -20px; right: -20px; letter-spacing: -4px; }
+        .auth-left-brand { display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+        .auth-left-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .auth-left-name { font-size: 1rem; font-weight: 900; line-height: 1.2; }
+        .auth-left-name span { color: var(--accent); }
+        .auth-left-sub { font-size: 0.6rem; opacity: 0.55; margin-top: 2px; }
+        .auth-left-hero { margin: 28px 0; position: relative; z-index: 1; }
+        .auth-left-hero h2 { font-size: 1.7rem; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
+        .auth-left-hero h2 em { color: var(--accent); font-style: normal; }
+        .auth-left-hero p { font-size: 0.75rem; opacity: 0.65; line-height: 1.8; }
+        .auth-feature-list { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+        .auth-feature { display: flex; align-items: center; gap: 10px; font-size: 0.72rem; opacity: 0.85; }
+        .auth-feature-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06); }
+        .auth-right { padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+        .auth-tabs {
+            display: flex; gap: 3px; margin-bottom: 22px;
+            background: var(--gray-50); border-radius: 12px; padding: 4px;
+        }
+        .auth-tab {
+            flex: 1; padding: 9px; text-align: center; border-radius: 9px;
+            font-size: 13px; font-weight: 700; cursor: pointer;
+            transition: var(--transition); color: var(--gray-400);
+            border: none; background: transparent;
+        }
+        .auth-tab.active { background: var(--white); color: var(--primary); box-shadow: var(--shadow-sm); }
+        .auth-form-title { font-size: 1.2rem; font-weight: 900; color: var(--gray-800); margin-bottom: 4px; }
+        .auth-form-sub { font-size: 12px; color: var(--gray-400); margin-bottom: 18px; }
+        .form-group { margin-bottom: 14px; }
+        .form-label { display: block; font-size: 11px; font-weight: 700; color: var(--gray-600); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.3px; }
+        .form-control {
+            width: 100%; padding: 11px 14px;
+            border: 1.5px solid var(--gray-200); border-radius: 10px;
+            font-size: 13.5px; color: var(--gray-800);
+            background: var(--white); transition: var(--transition); outline: none;
+        }
+        .form-control:focus { border-color: var(--primary-mid); box-shadow: 0 0 0 3px rgba(21,128,61,0.10); }
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .input-icon-wrap { position: relative; }
+        .input-icon-wrap .form-control { padding-left: 40px; }
+        .input-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; opacity: 0.6; }
+        .pass-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 14px; opacity: 0.5; }
+        .btn-primary {
+            width: 100%; padding: 13px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
+            color: #fff; border: none; border-radius: 10px;
+            font-size: 14px; font-weight: 700; cursor: pointer;
+            transition: var(--transition); box-shadow: 0 4px 16px rgba(21,128,61,0.25);
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(21,128,61,0.35); }
+        .auth-msg { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 12px; margin-top: 10px; font-weight: 600; }
+        .auth-msg.error { background: #fef2f2; color: var(--red-dark); border: 1px solid rgba(220,38,38,0.2); }
+        .auth-msg.success { background: var(--green-light); color: var(--green); border: 1px solid rgba(5,150,105,0.2); }
+        .auth-divider { text-align: center; color: var(--gray-400); font-size: 11px; margin: 14px 0; position: relative; }
+        .auth-divider::before, .auth-divider::after { content: ''; position: absolute; top: 50%; height: 1px; width: 36%; background: var(--gray-200); }
+        .auth-divider::before { left: 0; } .auth-divider::after { right: 0; }
+        .required-star { color: var(--red); }
+        .auth-role-selector { display: flex; gap: 8px; margin-bottom: 18px; }
+        .auth-role-selector button {
+            flex: 1; padding: 9px; border-radius: 10px; border: 1.5px solid var(--gray-200);
+            background: var(--white); font-weight: 700; font-size: 13px;
+            color: var(--gray-600); transition: var(--transition);
+        }
+        .auth-role-selector button.active { border-color: var(--primary); color: var(--primary); background: rgba(21,128,61,0.06); }
+
+        /* ============================== APP SHELL ============================== */
+        #appShell { display: none; min-height: 100vh; flex-direction: column; }
+        #appShell.show { display: flex; }
+
+        /* ============================== HEADER ============================== */
+        .header {
+            background: linear-gradient(135deg, #022c14 0%, var(--primary) 50%, #064e24 100%);
+            color: #fff; position: sticky; top: 0; z-index: 200;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+        }
+        .util-bar { background: rgba(0,0,0,0.2); padding: 4px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .util-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; font-size: 10.5px; opacity: 0.75; flex-wrap: wrap; }
+        .util-sep { opacity: 0.25; }
+        .util-urgent { color: var(--accent); font-weight: 700; }
+        @media (max-width:640px){ .util-bar { display: none; } }
+        .header-ticker { background: rgba(0,0,0,0.15); padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
+        .ticker-inner { display: flex; animation: ticker-scroll 40s linear infinite; white-space: nowrap; }
+        .ticker-item { font-size: 11px; padding: 0 28px; opacity: 0.7; flex-shrink: 0; }
+        .ticker-item::before { content: '◆'; color: var(--accent); margin-right: 10px; font-size: 7px; }
+        @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .header-main { display: flex; align-items: center; padding: 10px 16px; gap: 14px; flex-wrap: wrap; }
+        .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0; }
+        .brand-icon { width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.10); border: 1.5px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; backdrop-filter: blur(8px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: var(--transition); }
+        .brand:hover .brand-icon { background: rgba(255,255,255,0.20); }
+        .brand-name { font-size: 0.95rem; font-weight: 900; line-height: 1.1; }
+        .brand-name span { color: var(--accent); }
+        .brand-tagline { font-size: 0.55rem; opacity: 0.55; margin-top: 1px; }
+        .header-spacer { flex: 1; }
+        .header-search-wrap { position: relative; flex: 1; max-width: 320px; min-width: 160px; }
+        .header-search {
+            width: 100%; padding: 8px 38px 8px 16px;
+            background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px; color: #fff; font-size: 12.5px;
+            outline: none; transition: var(--transition);
+        }
+        .header-search::placeholder { color: rgba(255,255,255,0.40); }
+        .header-search:focus { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.30); }
+        .search-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); opacity: 0.45; pointer-events: none; font-size: 13px; }
+        .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .hdr-btn { padding: 6px 14px; border-radius: 22px; font-size: 11.5px; font-weight: 600; border: 1.5px solid rgba(255,255,255,0.20); color: #fff; background: transparent; cursor: pointer; transition: var(--transition); }
+        .hdr-btn:hover { background: rgba(255,255,255,0.12); }
+        .hdr-btn.accent { background: var(--accent); color: var(--primary); border-color: var(--accent); font-weight: 700; }
+        .hdr-btn.accent:hover { background: #d97706; }
+        .notif-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; font-size: 15px; transition: var(--transition); }
+        .notif-btn:hover { background: rgba(255,255,255,0.18); }
+        .notif-badge { position: absolute; top: -3px; right: -3px; width: 17px; height: 17px; border-radius: 50%; background: var(--red); color: #fff; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #064e24; animation: badge-pulse 2s ease-in-out infinite; }
+        @keyframes badge-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.4)} 50%{box-shadow:0 0 0 5px rgba(220,38,38,0)} } }
+        .user-pill { display: flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; cursor: pointer; position: relative; transition: var(--transition); }
+        .user-pill:hover { background: rgba(255,255,255,0.18); }
+        .user-av { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #fbbf24); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; }
+        .user-name { font-size: 11.5px; font-weight: 700; }
+        .user-role-badge { font-size: 8.5px; opacity: 0.6; }
+        .user-dropdown {
+            position: absolute; top: calc(100% + 10px); right: 0;
+            background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-xl);
+            border: 1px solid var(--gray-200); min-width: 210px; padding: 8px;
+            z-index: 300; color: var(--gray-800);
+            opacity: 0; transform: translateY(-8px); pointer-events: none; transition: var(--transition);
+        }
+        body.dark-mode .user-dropdown { background: var(--white); border-color: var(--gray-200); }
+        .user-dropdown.open { opacity: 1; transform: translateY(0); pointer-events: all; }
+        .user-dropdown-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px; font-size: 12.5px; cursor: pointer; transition: var(--transition); color: var(--gray-700); }
+        .user-dropdown-item:hover { background: var(--gray-50); }
+        .user-dropdown-item.danger { color: var(--red); }
+        .user-dropdown-item.danger:hover { background: #fef2f2; }
+        .user-dropdown hr { border: none; border-top: 1px solid var(--gray-100); margin: 4px 0; }
+        .user-dropdown-profile { padding: 10px 12px; background: var(--gray-50); border-radius: 10px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .user-dropdown-profile .av { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; flex-shrink: 0; }
+        .user-dropdown-profile .info .name { font-size: 13px; font-weight: 700; }
+
+        /* ============================== NAV BAR ============================== */
+        .nav-bar {
+            display: flex; overflow-x: auto; gap: 2px;
+            padding: 0 14px 8px; border-top: 1px solid rgba(255,255,255,0.06);
+            scrollbar-width: none;
+        }
+        .nav-bar::-webkit-scrollbar { display: none; }
+        .nav-item {
+            display: flex; align-items: center; gap: 6px;
+            padding: 7px 14px; border-radius: 22px; white-space: nowrap;
+            font-size: 12px; font-weight: 600; cursor: pointer;
+            transition: var(--transition); color: rgba(255,255,255,0.65);
+            flex-shrink: 0;
+        }
+        .nav-item:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.08); }
+        .nav-item.active { background: rgba(255,255,255,0.14); color: #fff; }
+        .nav-item .nav-icon { font-size: 13px; }
+        .nav-lock { font-size: 8px; margin-left: 3px; opacity: 0.6; }
+
+        /* ============================== MAIN CONTENT ============================== */
+        .main-content { flex: 1; padding: 16px; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fade-in 0.3s ease; }
+        @keyframes fade-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+        .card { background: var(--white); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-100); margin-bottom: 16px; }
+        .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .card-title { font-size: 1rem; font-weight: 800; color: var(--gray-800); display: flex; align-items: center; gap: 8px; }
+        .card-title::before { content: ''; width: 4px; height: 20px; background: linear-gradient(to bottom, var(--primary), var(--primary-light)); border-radius: 4px; }
+
+        /* ============================== HERO ============================== */
+        .hero-banner {
+            background: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px) 0 0/20px 20px,
+                linear-gradient(140deg, #022c14 0%, var(--primary) 50%, var(--primary-mid) 100%);
+            border-radius: var(--radius-lg); padding: 28px 30px; color: #fff; margin-bottom: 20px;
+            position: relative; overflow: hidden;
+        }
+        .hero-banner::before { content: ''; position: absolute; right: -60px; top: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(245,158,11,0.10) 0%, transparent 70%); }
+        .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; position: relative; z-index: 1; }
+        .hero-greeting { font-size: 0.8rem; opacity: 0.6; margin-bottom: 4px; }
+        .hero-name { font-size: 1.6rem; font-weight: 900; margin-bottom: 6px; line-height: 1.15; }
+        .hero-name em { color: var(--accent); font-style: normal; }
+        .hero-sub { font-size: 0.78rem; opacity: 0.7; max-width: 420px; line-height: 1.7; }
+        .hero-right { text-align: right; flex-shrink: 0; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.15); border-radius: 22px; padding: 6px 14px; font-size: 11.5px; font-weight: 600; backdrop-filter: blur(6px); }
+        .hero-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+        .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+        /* ============================== BUTTONS ============================== */
+        .btn { padding: 10px 22px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+        .btn-navy { background: var(--primary); color: #fff; }
+        .btn-navy:hover { background: var(--primary-mid); box-shadow: 0 4px 16px rgba(21,128,61,0.3); }
+        .btn-gold { background: var(--accent); color: var(--primary); font-weight: 700; }
+        .btn-gold:hover { background: #d97706; box-shadow: 0 4px 16px rgba(245,158,11,0.35); }
+        .btn-ghost { background: transparent; color: var(--gray-600); border: 1.5px solid var(--gray-200); }
+        .btn-ghost:hover { background: var(--gray-50); }
+        .btn-red { background: var(--red); color: #fff; }
+        .btn-red:hover { background: var(--red-dark); }
+        .btn-green { background: var(--green); color: #fff; }
+        .btn-sm { padding: 6px 12px; font-size: 11px; border-radius: 7px; }
+        .btn-icon { display: inline-flex; align-items: center; gap: 6px; }
+        .btn-block { width: 100%; justify-content: center; }
+
+        /* ============================== STATS ============================== */
+        .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: var(--white); border-radius: var(--radius); padding: 16px 14px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-100); border-top: 4px solid transparent; transition: var(--transition); }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .stat-card.navy { border-top-color: var(--primary); }
+        .stat-card.gold { border-top-color: var(--accent); }
+        .stat-card.green { border-top-color: var(--green); }
+        .stat-card.red { border-top-color: var(--red); }
+        .stat-icon { font-size: 1.4rem; margin-bottom: 6px; }
+        .stat-val { font-size: 1.7rem; font-weight: 900; line-height: 1; }
+        .stat-label { font-size: 11px; color: var(--gray-400); margin-top: 4px; font-weight: 600; }
+
+        /* ============================== PRODUCTS GRID ============================== */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 16px; margin-bottom: 20px; }
+        .product-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-100); transition: var(--transition); cursor: pointer; position: relative; }
+        .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .product-image { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: var(--gray-50); position: relative; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .product-card:hover .product-image img { transform: scale(1.04); }
+        .product-badge { position: absolute; top: 10px; left: 10px; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; z-index: 2; background: var(--accent); color: var(--primary); }
+        .product-badge.hot { background: var(--red); color: #fff; }
+        .product-badge.new { background: var(--green); color: #fff; }
+        .product-actions-overlay { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 8px; opacity: 0; transition: var(--transition); }
+        .product-card:hover .product-actions-overlay { opacity: 1; }
+        .product-action-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.92); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; color: var(--gray-700); box-shadow: var(--shadow-sm); cursor: pointer; transition: var(--transition); border: none; font-size: 14px; }
+        .product-action-btn:hover { background: var(--primary); color: #fff; }
+        .product-action-btn.active { background: var(--primary); color: #fff; }
+        .product-info { padding: 12px 14px 14px; }
+        .product-category { font-size: 10.5px; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+        .product-title { font-size: 13.5px; font-weight: 700; color: var(--gray-800); margin: 4px 0 6px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+        .product-price { font-size: 1.1rem; font-weight: 900; color: var(--primary); }
+        .product-price-old { font-size: 12px; color: var(--gray-400); text-decoration: line-through; }
+        .product-discount { font-size: 11px; color: var(--green); font-weight: 700; }
+        .product-rating { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--gray-400); }
+        .product-rating .stars { color: var(--accent); }
+        .product-seller { font-size: 10.5px; color: var(--gray-400); margin-top: 4px; }
+        .product-add-btn { width: 100%; margin-top: 10px; padding: 8px; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--primary-mid)); color: #fff; font-weight: 700; font-size: 12px; cursor: pointer; transition: var(--transition); }
+        .product-add-btn:hover { background: linear-gradient(135deg, var(--primary-mid), var(--primary-light)); }
+
+        /* ============================== CATEGORY CARDS ============================== */
+        .category-section { margin-bottom: 28px; }
+        .category-cards { display: grid; grid-template-columns: repeat(auto-fill,minmax(130px,1fr)); gap: 14px; }
+        .category-card { background: var(--white); border-radius: var(--radius); padding: 18px 12px; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-100); transition: var(--transition); cursor: pointer; }
+        .category-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--primary-light); }
+        .category-icon { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px; }
+        .category-card h3 { font-size: 13px; font-weight: 700; color: var(--gray-800); }
+
+        /* ============================== SIDEBAR ============================== */
+        .home-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; align-items: start; }
+        .home-main { display: flex; flex-direction: column; gap: 16px; }
+        .home-sidebar { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 120px; }
+        .sidebar-widget { background: var(--white); border-radius: var(--radius); padding: 16px; border: 1px solid var(--gray-100); box-shadow: var(--shadow-sm); }
+        .sidebar-widget-title { font-size: 12px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 10px; }
+        .sidebar-widget.urgent { background: linear-gradient(135deg, var(--red-dark), var(--red)); color: #fff; border: none; }
+        .sidebar-widget.urgent .sidebar-widget-title { color: #fff; }
+        .sidebar-widget-text { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .sidebar-widget-sub { font-size: 11px; opacity: 0.85; line-height: 1.5; }
+        .sidebar-contact-row { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--gray-100); font-size: 12px; align-items: flex-start; }
+        .sidebar-contact-row:last-child { border-bottom: none; }
+        .sc-label { font-size: 10px; color: var(--gray-400); }
+        .sc-val { font-weight: 700; color: var(--gray-800); }
+        .quick-link-item { padding: 8px 4px; font-size: 12px; font-weight: 600; color: var(--gray-700); border-bottom: 1px solid var(--gray-50); cursor: pointer; transition: var(--transition); }
+        .quick-link-item:last-child { border-bottom: none; }
+        .quick-link-item:hover { color: var(--primary); padding-left: 8px; }
+        @media (max-width:900px){ .home-layout{grid-template-columns:1fr} .home-sidebar{position:static} }
+
+        /* ============================== FILTER CHIPS ============================== */
+        .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+        .filter-chip { padding: 5px 16px; border-radius: 22px; font-size: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); background: var(--white); border: 1.5px solid var(--gray-200); color: var(--gray-600); }
+        .filter-chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .filter-chip:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+
+        /* ============================== CART ============================== */
+        .cart-item { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); align-items: center; }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-item-img { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; background: var(--gray-50); }
+        .cart-item-info .name { font-weight: 700; font-size: 13px; }
+        .cart-item-info .price { color: var(--primary); font-weight: 900; font-size: 14px; }
+        .cart-item-qty { display: flex; align-items: center; gap: 8px; }
+        .cart-item-qty button { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--gray-200); background: transparent; font-size: 14px; cursor: pointer; transition: var(--transition); }
+        .cart-item-qty button:hover { border-color: var(--primary); color: var(--primary); }
+        .cart-item-qty span { font-weight: 700; font-size: 14px; min-width: 24px; text-align: center; }
+        .cart-summary { background: var(--gray-50); border-radius: var(--radius); padding: 16px; margin-top: 12px; }
+        .cart-summary-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+        .cart-summary-row.total { font-weight: 900; font-size: 1.1rem; border-top: 2px solid var(--gray-200); padding-top: 12px; margin-top: 6px; }
+
+        /* ============================== SELLER DASHBOARD ============================== */
+        .seller-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin-bottom: 18px; }
+        .seller-stat { background: var(--white); border-radius: var(--radius); padding: 16px; border: 1px solid var(--gray-100); box-shadow: var(--shadow-sm); text-align: center; }
+        .seller-stat .icon { font-size: 1.5rem; margin-bottom: 4px; }
+        .seller-stat .val { font-size: 1.5rem; font-weight: 900; }
+        .seller-stat .label { font-size: 11px; color: var(--gray-400); font-weight: 600; }
+        .seller-product-form .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        /* ============================== ADMIN ============================== */
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 12px; margin-bottom: 18px; }
+        .admin-stat { background: var(--white); border-radius: var(--radius); padding: 16px; border: 1px solid var(--gray-100); box-shadow: var(--shadow-sm); border-top: 4px solid var(--primary); }
+        .admin-stat .icon { font-size: 1.4rem; }
+        .admin-stat .val { font-size: 1.6rem; font-weight: 900; }
+        .admin-stat .label { font-size: 11px; color: var(--gray-400); font-weight: 600; }
+        .admin-stat.red { border-top-color: var(--red); }
+        .admin-stat.gold { border-top-color: var(--accent); }
+        .admin-stat.green { border-top-color: var(--green); }
+        .admin-inner-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 16px; }
+        .admin-inner-tab { padding: 6px 16px; border-radius: 22px; font-size: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); background: var(--gray-100); color: var(--gray-600); border: none; }
+        .admin-inner-tab.active { background: var(--primary); color: #fff; }
+
+        /* ============================== CHAT ============================== */
+        .chat-layout { display: grid; grid-template-columns: 240px 1fr; height: 480px; border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; }
+        .chat-sidebar { border-right: 1px solid var(--gray-200); overflow-y: auto; background: var(--gray-50); }
+        .chat-sidebar-header { padding: 12px 14px; border-bottom: 1px solid var(--gray-200); font-size: 13px; font-weight: 700; background: var(--white); }
+        .chat-search-wrap { padding: 8px 12px; border-bottom: 1px solid var(--gray-200); background: var(--white); }
+        .chat-search-input { width: 100%; padding: 6px 12px; border: 1.5px solid var(--gray-200); border-radius: 18px; font-size: 11.5px; outline: none; transition: var(--transition); background: var(--off-white); color: var(--gray-800); }
+        .chat-search-input:focus { border-color: var(--primary-mid); }
+        .chat-user-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; border-bottom: 1px solid var(--gray-100); transition: var(--transition); }
+        .chat-user-item:hover { background: #f0f4ff; }
+        body.dark-mode .chat-user-item:hover { background: var(--gray-50); }
+        .chat-user-item.active { background: #e8f0fe; }
+        body.dark-mode .chat-user-item.active { background: rgba(21,128,61,0.15); }
+        .chat-user-av { width: 36px; height: 36px; border-radius: 50%; background: var(--primary-mid); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+        .chat-user-name { font-size: 12.5px; font-weight: 700; color: var(--gray-800); }
+        .chat-user-preview { font-size: 10.5px; color: var(--gray-400); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .chat-unread { width: 18px; height: 18px; background: var(--red); border-radius: 50%; color: #fff; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-left: auto; }
+        .chat-main { display: flex; flex-direction: column; }
+        .chat-header { padding: 12px 16px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 10px; background: var(--white); }
+        .chat-status { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,0.5); }
+        .chat-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 8px; background: #f4f7ff; }
+        body.dark-mode .chat-body { background: var(--gray-50); }
+        .msg-bubble { max-width: 72%; border-radius: 14px; padding: 9px 14px; font-size: 12.5px; line-height: 1.6; word-break: break-word; }
+        .msg-mine { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .msg-theirs { background: var(--white); color: var(--gray-800); border: 1px solid var(--gray-200); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg-time { font-size: 9px; opacity: 0.5; margin-top: 3px; text-align: right; }
+        .msg-theirs .msg-time { text-align: left; }
+        .msg-text { white-space: pre-wrap; }
+        .msg-tick { margin-left: 4px; font-size: 10px; opacity: 0.6; letter-spacing: -1px; }
+        .msg-tick.seen { color: #93f0c7; opacity: 1; }
+        .chat-date-divider { display: flex; align-items: center; justify-content: center; margin: 4px 0 2px; }
+        .chat-date-divider span { background: var(--gray-100); color: var(--gray-600); font-size: 10px; font-weight: 700; padding: 3px 12px; border-radius: 20px; }
+        .chat-input-row { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--gray-200); background: var(--white); }
+        .chat-input { flex: 1; padding: 8px 14px; border: 1.5px solid var(--gray-200); border-radius: 22px; font-size: 13px; outline: none; transition: var(--transition); background: var(--off-white); color: var(--gray-800); }
+        .chat-input:focus { border-color: var(--primary-mid); }
+        .chat-send-btn { padding: 8px 18px; background: var(--primary); color: #fff; border: none; border-radius: 22px; font-size: 12px; font-weight: 700; cursor: pointer; transition: var(--transition); }
+        .chat-send-btn:hover { background: var(--primary-mid); }
+        .chat-nav-badge { background: var(--red); color: #fff; font-size: 8.5px; font-weight: 800; min-width: 14px; height: 14px; padding: 0 4px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; margin-left: 3px; border: 1.5px solid rgba(255,255,255,0.3); animation: badge-pulse 2s ease-in-out infinite; }
+
+        /* ============================== TABLE ============================== */
+        .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--gray-100); }
+        table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        thead tr { background: var(--gray-50); }
+        th { padding: 10px 14px; text-align: left; font-weight: 700; color: var(--gray-600); border-bottom: 2px solid var(--gray-200); white-space: nowrap; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.3px; }
+        td { padding: 10px 14px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+        tr:hover td { background: #f4f7ff; }
+        body.dark-mode tr:hover td { background: var(--gray-50); }
+        .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-processing { background: #dbeafe; color: #1e40af; }
+        .badge-approved { background: var(--green-light); color: var(--green); }
+        .badge-rejected { background: #fef2f2; color: var(--red-dark); }
+        .badge-paid { background: var(--green-light); color: var(--green); }
+        .badge-unpaid { background: #fef2f2; color: var(--red-dark); }
+
+        /* ============================== NOTICES ============================== */
+        .notice-card { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 12.5px; display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; border: 1px solid; }
+        .notice-info { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+        .notice-warning { background: #fefce8; color: #92400e; border-color: #fde68a; }
+        .notice-success { background: var(--green-light); color: var(--green); border-color: #6ee7b7; }
+        .notice-danger { background: #fef2f2; color: var(--red-dark); border-color: #fca5a5; }
+        .notice-date { font-size: 10.5px; opacity: 0.6; margin-top: 3px; }
+
+        /* ============================== MODAL ============================== */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.50); z-index: 500; display: none; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(4px); }
+        .modal-overlay.open { display: flex; }
+        .modal-content { background: var(--white); border-radius: 22px; padding: 28px; max-width: 560px; width: 100%; box-shadow: var(--shadow-xl); max-height: 90vh; overflow-y: auto; animation: modal-in 0.25s ease; }
+        @keyframes modal-in { from { opacity:0; transform:scale(0.95) translateY(-12px); } to { opacity:1; transform:scale(1) translateY(0); } }
+        .modal-title { font-size: 1.1rem; font-weight: 900; color: var(--gray-800); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+        .modal-close { margin-left: auto; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--gray-400); transition: var(--transition); }
+        .modal-close:hover { color: var(--red); }
+        .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; border-top: 1px solid var(--gray-100); padding-top: 18px; }
+
+        /* ============================== TOAST ============================== */
+        #toastContainer { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+        .toast { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 11px; color: #fff; font-size: 13px; font-weight: 600; box-shadow: var(--shadow-lg); animation: toast-in 0.3s ease; max-width: 340px; background: var(--gray-800); }
+        .toast.success { border-left: 4px solid var(--green); }
+        .toast.error { border-left: 4px solid var(--red); }
+        .toast.warning { border-left: 4px solid var(--accent); background: var(--accent); color: var(--primary); }
+        .toast.info { border-left: 4px solid var(--blue); }
+        @keyframes toast-in { from { opacity:0; transform:translateX(24px); } to { opacity:1; transform:translateX(0); } }
+        .toast-icon { font-size: 15px; flex-shrink: 0; }
+
+        /* ============================== FOOTER ============================== */
+        .footer { background: linear-gradient(135deg, #022c14, var(--primary)); color: rgba(255,255,255,0.6); padding: 24px 20px; margin-top: auto; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 24px; margin-bottom: 16px; }
+        .footer-brand .f-name { font-size: 1.1rem; font-weight: 900; color: #fff; }
+        .footer-brand .f-name span { color: var(--accent); }
+        .footer-brand p { font-size: 11px; margin-top: 6px; line-height: 1.7; }
+        .footer-contact h4 { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-contact p { font-size: 11px; line-height: 1.9; }
+        .footer-contact a { color: var(--accent); cursor: pointer; }
+        .footer-contact a:hover { text-decoration: underline; }
+        .footer-bottom { text-align: center; font-size: 10.5px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 14px; }
+        .footer-bottom strong { color: var(--accent); }
+        .footer-disclaimer { text-align: center; font-size: 9.5px; opacity: 0.45; margin-top: 6px; line-height: 1.6; }
+        @media (max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr} }
+        @media (max-width:640px){ .footer-grid{grid-template-columns:1fr} }
+
+        /* ============================== FAB ============================== */
+        .fab { position: fixed; bottom: 26px; right: 26px; z-index: 150; width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-mid)); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; cursor: pointer; box-shadow: 0 8px 28px rgba(21,128,61,0.45); transition: var(--transition); border: none; }
+        .fab:hover { transform: scale(1.08); box-shadow: 0 12px 36px rgba(21,128,61,0.55); }
+
+        .contact-fab-cluster { position: fixed; bottom: 26px; left: 22px; z-index: 150; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+        .contact-fab { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #fff; text-decoration: none; box-shadow: var(--shadow-lg); transition: var(--transition); border: none; cursor: pointer; position: relative; }
+        .contact-fab:hover { transform: scale(1.08); }
+        .contact-fab.whatsapp { background: linear-gradient(135deg, #25d366, #128c3e); box-shadow: 0 8px 28px rgba(37,211,102,0.4); }
+        .contact-fab.call { background: linear-gradient(135deg, var(--primary-mid), var(--primary)); box-shadow: 0 8px 28px rgba(21,128,61,0.4); }
+        .contact-fab-label { position: absolute; left: 58px; top: 50%; transform: translateY(-50%); background: var(--gray-800); color: #fff; font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 6px; white-space: nowrap; opacity: 0; pointer-events: none; transition: var(--transition); }
+        .contact-fab:hover .contact-fab-label { opacity: 1; }
+
+        .back-to-top { position: fixed; bottom: 90px; right: 26px; z-index: 149; width: 42px; height: 42px; border-radius: 50%; background: var(--gray-800); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; border: none; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transform: translateY(10px); transition: var(--transition); }
+        .back-to-top.show { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+        .bottom-nav { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 250; background: var(--white); border-top: 1px solid var(--gray-100); box-shadow: 0 -6px 24px rgba(0,0,0,0.06); padding: 4px 4px calc(4px + var(--safe-b)); align-items: stretch; justify-content: space-around; }
+        body.dark-mode .bottom-nav { background: var(--white); border-top-color: var(--gray-200); }
+        .bn-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 4px 2px; border-radius: 12px; cursor: pointer; color: var(--gray-400); font-size: 9px; font-weight: 700; transition: var(--transition); -webkit-tap-highlight-color: transparent; position: relative; }
+        .bn-item .bn-icon { font-size: 18px; line-height: 1; }
+        .bn-item.active { color: var(--primary); background: rgba(21,128,61,0.06); }
+        .bn-item.bn-cta { color: var(--white); }
+        .bn-item.bn-cta .bn-icon-wrap { width: 42px; height: 42px; margin-top: -16px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #fbbf24); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(245,158,11,0.4); font-size: 18px; color: var(--primary); }
+        .bn-item.bn-cta.active { color: var(--primary); background: none; }
+        .bn-chat-badge { position: absolute; top: -2px; left: 50%; margin-left: 12px; background: var(--red); color: #fff; font-size: 8px; font-weight: 800; min-width: 14px; height: 14px; padding: 0 3px; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--white); animation: badge-pulse 2s ease-in-out infinite; }
+
+        @media (max-width:760px){
+            .bottom-nav{display:flex}
+            #appShell{padding-bottom:calc(64px + var(--safe-b))}
+            .nav-bar{display:none}
+            .header-search-wrap{display:none}
+            .util-bar{display:none}
+            .header-main{padding:8px 12px;gap:8px}
+            .brand-tagline{display:none}
+            .brand-icon{width:36px;height:36px;font-size:1rem}
+            .brand-name{font-size:0.85rem}
+            .main-content{padding:12px}
+            .hero-banner{padding:20px 18px}
+            .hero-name{font-size:1.3rem}
+            .hero-grid{grid-template-columns:1fr}
+            .hero-right{display:none}
+            .stats-grid{grid-template-columns:1fr 1fr;gap:8px}
+            .stat-val{font-size:1.3rem}
+            .products-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+            .category-cards{grid-template-columns:repeat(3,1fr);gap:10px}
+            .home-layout{grid-template-columns:1fr}
+            .home-sidebar{position:static}
+            .chat-layout{grid-template-columns:1fr;grid-template-rows:130px 1fr;height:440px}
+            .auth-container{grid-template-columns:1fr;border-radius:20px}
+            .auth-left{display:none}
+            .auth-right{padding:28px 20px}
+            .form-grid-2{grid-template-columns:1fr}
+            .modal-content{padding:20px;border-radius:18px}
+            .table-wrap table{font-size:11px}
+            th,td{padding:8px 10px}
+            .fab,.contact-fab-cluster{display:none !important}
+            .back-to-top{bottom:80px;right:16px;width:38px;height:38px;font-size:0.9rem}
+            .seller-product-form .form-grid{grid-template-columns:1fr}
+            .admin-stats{grid-template-columns:1fr 1fr}
+            .seller-stats{grid-template-columns:1fr 1fr}
+        }
+        @media (max-width:420px){
+            .products-grid{grid-template-columns:1fr 1fr;gap:8px}
+            .category-cards{grid-template-columns:repeat(2,1fr)}
+            .stats-grid{grid-template-columns:1fr 1fr}
+            .hero-name{font-size:1.1rem}
+            .card{padding:14px}
+            .load-brand h1{font-size:1.2rem}
+        }
+        @media (min-width:761px){ .bottom-nav{display:none !important} }
+        @media print{ .header,.footer,.bottom-nav,.fab,.contact-fab-cluster,.back-to-top,.nav-bar,.util-bar,.header-ticker{display:none !important} body{background:#fff !important} .print-area{display:block !important;box-shadow:none !important} }
+    </style>
+</head>
+<body>
+
+    <!-- ============================== LOADING SCREEN ============================== -->
+    <div id="loadingScreen">
+        <div class="load-particles">
+            <div class="load-particle"></div><div class="load-particle"></div>
+            <div class="load-particle"></div><div class="load-particle"></div>
+            <div class="load-particle"></div><div class="load-particle"></div>
+        </div>
+        <div class="load-inner">
+            <div class="load-logo-ring">
+                <div class="load-ring"></div>
+                <div class="load-ring-2"></div>
+                <div class="load-logo-core">🛒</div>
+            </div>
+            <div class="load-brand">
+                <h1>সেরা <em>বাজার</em></h1>
+                <p>বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস</p>
+            </div>
+            <div class="load-progress-wrap">
+                <div class="load-track"><div class="load-bar" id="loadBar"></div></div>
+                <div class="load-msg" id="loadMsg">প্ল্যাটফর্ম চালু হচ্ছে...</div>
+            </div>
+            <div class="load-dots">
+                <div class="load-dot"></div><div class="load-dot"></div><div class="load-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================== AUTH PAGE ============================== -->
+    <div id="authPage" class="hidden">
+        <div class="auth-close" onclick="hideAuthPage()">✕</div>
+        <div class="auth-orb auth-orb-1"></div>
+        <div class="auth-orb auth-orb-2"></div>
+        <div class="auth-container">
+            <div class="auth-left">
+                <div class="auth-left-brand">
+                    <div class="auth-left-icon">🛒</div>
+                    <div>
+                        <div class="auth-left-name">সেরা <span>বাজার</span></div>
+                        <div class="auth-left-sub">অনলাইন মার্কেটপ্লেস · বাংলাদেশ</div>
+                    </div>
+                </div>
+                <div class="auth-left-hero">
+                    <h2>ক্রেতা-বিক্রেতার <em>সেরা</em> ঠিকানা</h2>
+                    <p>বাংলাদেশের সবচেয়ে বিশ্বস্ত অনলাইন মার্কেটপ্লেস। কেনাকাটা, বিক্রয়, অর্ডার ট্র্যাকিং ও লাইভ চ্যাট — সবকিছু এক প্ল্যাটফর্মে।</p>
+                </div>
+                <div class="auth-feature-list">
+                    <div class="auth-feature"><div class="auth-feature-icon">🛍️</div>লাখ লাখ পণ্য · সেরা দামে</div>
+                    <div class="auth-feature"><div class="auth-feature-icon">🚚</div>দেশজুড়ে দ্রুত ডেলিভারি</div>
+                    <div class="auth-feature"><div class="auth-feature-icon">💬</div>ক্রেতা-বিক্রেতা সরাসরি চ্যাট</div>
+                    <div class="auth-feature"><div class="auth-feature-icon">🔒</div>নিরাপদ লেনদেন ও গোপনীয়তা</div>
+                    <div class="auth-feature"><div class="auth-feature-icon">⭐</div>রেটিং ও রিভিউ ব্যবস্থা</div>
+                    <div class="auth-feature"><div class="auth-feature-icon">📊</div>বিক্রেতার জন্য সম্পূর্ণ ড্যাশবোর্ড</div>
+                </div>
+            </div>
+            <div class="auth-right">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('login')">লগইন</button>
+                    <button class="auth-tab" onclick="switchAuthTab('register')">নিবন্ধন</button>
+                </div>
+                <!-- LOGIN -->
+                <div id="loginForm">
+                    <div class="auth-form-title">স্বাগতম! 👋</div>
+                    <div class="auth-form-sub">আপনার অ্যাকাউন্টে প্রবেশ করুন</div>
+                    <div class="form-group">
+                        <label class="form-label">মোবাইল নম্বর বা ইমেইল</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">📱</span>
+                            <input class="form-control" id="loginPhone" type="text" placeholder="মোবাইল বা ইমেইল">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">পাসওয়ার্ড</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">🔒</span>
+                            <input class="form-control" id="loginPass" type="password" placeholder="পাসওয়ার্ড দিন" onkeypress="if(event.key==='Enter') doLogin()">
+                            <span class="pass-toggle" onclick="togglePass('loginPass',this)">👁️</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="doLogin()">🔐 লগইন করুন</button>
+                    <div id="loginMsg"></div>
+                    <div class="auth-divider">অথবা</div>
+                    <button class="btn-primary" style="background:linear-gradient(135deg,var(--accent),#d97706);box-shadow:0 4px 16px rgba(245,158,11,0.3);color:var(--primary)" onclick="doAdminLogin()">⚡ অ্যাডমিন লগইন</button>
+                    <div id="adminLoginMsg"></div>
+                    <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--gray-400)">অ্যাকাউন্ট নেই? <a onclick="switchAuthTab('register')" style="color:var(--primary);cursor:pointer;font-weight:700">নিবন্ধন করুন</a></p>
+                </div>
+                <!-- REGISTER -->
+                <div id="registerForm" class="hidden">
+                    <div class="auth-form-title">নতুন অ্যাকাউন্ট ✨</div>
+                    <div class="auth-form-sub">ক্রেতা বা বিক্রেতা — আপনার ভূমিকা নির্বাচন করুন</div>
+                    <div class="auth-role-selector">
+                        <button class="active" data-role="buyer" onclick="setRegRole('buyer',this)">🛍️ ক্রেতা</button>
+                        <button data-role="seller" onclick="setRegRole('seller',this)">📦 বিক্রেতা</button>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group"><label class="form-label">পূর্ণ নাম <span class="required-star">*</span></label><input class="form-control" id="regName" type="text" placeholder="আপনার নাম"></div>
+                        <div class="form-group"><label class="form-label">মোবাইল <span class="required-star">*</span></label><input class="form-control" id="regPhone" type="tel" placeholder="01XXXXXXXXX"></div>
+                        <div class="form-group"><label class="form-label">ইমেইল</label><input class="form-control" id="regEmail" type="email" placeholder="you@example.com"></div>
+                        <div class="form-group" id="shopNameGroup"><label class="form-label">দোকানের নাম <span class="required-star" id="shopNameReq">*</span></label><input class="form-control" id="regShopName" type="text" placeholder="যেমন: রহিম স্টোর"></div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group"><label class="form-label">পাসওয়ার্ড <span class="required-star">*</span></label>
+                            <div class="input-icon-wrap"><span class="input-icon">🔒</span><input class="form-control" id="regPass" type="password" placeholder="কমপক্ষে ৬ অক্ষর"><span class="pass-toggle" onclick="togglePass('regPass',this)">👁️</span></div>
+                        </div>
+                        <div class="form-group"><label class="form-label">পাসওয়ার্ড নিশ্চিত <span class="required-star">*</span></label>
+                            <div class="input-icon-wrap"><span class="input-icon">🔒</span><input class="form-control" id="regPass2" type="password" placeholder="পুনরায় দিন"></div>
+                        </div>
+                    </div>
+                    <div class="form-group"><label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12px;"><input type="checkbox" id="regTerms"> আমি <a href="#" style="color:var(--primary)">শর্তাবলী ও গোপনীয়তা নীতি</a> মেনে নিচ্ছি</label></div>
+                    <button class="btn-primary" onclick="doRegister()">✅ অ্যাকাউন্ট তৈরি করুন</button>
+                    <div id="registerMsg"></div>
+                    <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--gray-400)">ইতিমধ্যে অ্যাকাউন্ট আছে? <a onclick="switchAuthTab('login')" style="color:var(--primary);cursor:pointer;font-weight:700">লগইন করুন</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================== APP SHELL ============================== -->
+    <div id="appShell">
+        <header class="header">
+            <div class="util-bar">
+                <div class="util-bar-inner">
+                    <span id="utilDate"></span>
+                    <span class="util-sep">|</span>
+                    <span>📞 01775-246863, 01866-106824</span>
+                    <span class="util-sep">|</span>
+                    <span class="util-urgent">🚨 সেরা অফার ও ডিসকাউন্ট দেখুন!</span>
+                    <span class="util-sep">|</span>
+                    <span>🛒 সারা দেশে ডেলিভারি</span>
+                </div>
+            </div>
+            <div class="header-ticker">
+                <div class="ticker-inner" id="tickerInner">
+                    <div class="ticker-item">স্বাগতম সেরা বাজার — বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস</div>
+                    <div class="ticker-item">ক্রেতা-বিক্রেতা সরাসরি চ্যাট · রেটিং · নিরাপদ লেনদেন</div>
+                    <div class="ticker-item">যোগাযোগ: 01775-246863, 01866-106824 | sera.bazar@example.com</div>
+                    <div class="ticker-item">সেবার সময়: সকাল ৯টা – রাত ১০টা</div>
+                    <div class="ticker-item">স্বাগতম সেরা বাজার — বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস</div>
+                    <div class="ticker-item">ক্রেতা-বিক্রেতা সরাসরি চ্যাট · রেটিং · নিরাপদ লেনদেন</div>
+                    <div class="ticker-item">যোগাযোগ: 01775-246863, 01866-106824 | sera.bazar@example.com</div>
+                    <div class="ticker-item">সেবার সময়: সকাল ৯টা – রাত ১০টা</div>
+                </div>
+            </div>
+            <div class="header-main">
+                <div class="brand" onclick="goTab('home')">
+                    <div class="brand-icon">🛒</div>
+                    <div class="brand-text-wrap">
+                        <div class="brand-name">সেরা <span>বাজার</span></div>
+                        <div class="brand-tagline" id="brandTagline">বাংলাদেশের বিশ্বস্ত মার্কেটপ্লেস</div>
+                    </div>
+                </div>
+                <div class="header-spacer"></div>
+                <div class="header-search-wrap">
+                    <input class="header-search" id="globalSearch" placeholder="পণ্য খুঁজুন..." oninput="globalSearchFn()">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="header-actions">
+                    <button class="hdr-btn" onclick="toggleTheme()" id="themeToggle" title="ডার্ক/লাইট মোড">🌙</button>
+                    <div class="notif-btn" onclick="toggleNotifPanel()" id="notifBtn">🔔<div class="notif-badge hidden" id="notifCount">0</div></div>
+                    <button class="hdr-btn hidden" id="guestLoginBtn" onclick="showAuthPage()">🔐 লগইন</button>
+                    <div class="user-pill" onclick="toggleUserMenu()">
+                        <div class="user-av" id="headerAv">U</div>
+                        <div><div class="user-name" id="headerName">ইউজার</div><div class="user-role-badge" id="headerRole">ক্রেতা</div></div>
+                        <span style="font-size:10px;opacity:0.5;">▾</span>
+                        <div class="user-dropdown" id="userDropdown">
+                            <div class="user-dropdown-profile">
+                                <div class="av" id="ddAv">U</div>
+                                <div class="info"><div class="name" id="ddName">—</div><div class="role" id="ddRole" style="font-size:11px;color:var(--gray-400)">—</div></div>
+                            </div>
+                            <div class="user-dropdown-item" onclick="goTab('profile')">👤 প্রোফাইল</div>
+                            <div class="user-dropdown-item" onclick="goTab('myorders')">📦 আমার অর্ডার</div>
+                            <div class="user-dropdown-item" onclick="goTab('wishlist')">❤️ উইশলিস্ট</div>
+                            <div class="user-dropdown-item" onclick="goTab('cart')">🛒 কার্ট</div>
+                            <div class="user-dropdown-item" onclick="goTab('chat')">💬 চ্যাট</div>
+                            <hr>
+                            <div class="user-dropdown-item danger" onclick="doLogout()">🚪 লগআউট</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-bar" id="navBar"></nav>
+        </header>
+
+        <nav class="bottom-nav" id="bottomNav"></nav>
+        <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️</button>
+
+        <div class="notif-panel" id="notifPanel" style="position:fixed;top:0;right:-360px;width:340px;height:100vh;background:var(--white);z-index:500;box-shadow:var(--shadow-xl);transition:right 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;border-left:1px solid var(--gray-200);">
+            <div class="notif-panel-header" style="padding:16px 20px;background:linear-gradient(135deg,var(--primary),var(--primary-mid));color:#fff;display:flex;align-items:center;justify-content:space-between;border-radius:0;">
+                <h3 style="font-size:1rem;font-weight:800;">🔔 নোটিফিকেশন</h3>
+                <span class="notif-close" onclick="toggleNotifPanel()" style="cursor:pointer;font-size:20px;opacity:0.7;">✕</span>
+            </div>
+            <div class="notif-panel-body" id="notifPanelBody" style="flex:1;overflow-y:auto;padding:10px;"></div>
+            <div class="notif-panel-footer" style="padding:10px 14px;border-top:1px solid var(--gray-100);"><button class="btn btn-ghost w-full btn-sm" onclick="markAllRead()">সব পড়া হয়েছে ✓</button></div>
+        </div>
+        <div class="panel-overlay" id="panelOverlay" onclick="toggleNotifPanel()" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:499;display:none;backdrop-filter:blur(3px);"></div>
+
+        <div class="main-content">
+
+            <!-- ========== HOME ========== -->
+            <div class="tab-content" id="tab-home">
+                <div class="hero-banner">
+                    <div class="hero-grid">
+                        <div>
+                            <div class="hero-greeting">শুভেচ্ছা 👋</div>
+                            <div class="hero-name" id="heroUserName">স্বাগতম!</div>
+                            <div class="hero-sub" id="heroSubText">সেরা বাজার — বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। কেনাকাটা, বিক্রয় ও লাইভ চ্যাট সবকিছু এক জায়গায়।</div>
+                            <div class="hero-actions">
+                                <button class="btn btn-gold" onclick="goTab('products')">🛍️ পণ্য ব্রাউজ করুন</button>
+                                <button class="btn btn-ghost" style="border-color:rgba(255,255,255,0.25);color:#fff" onclick="goTab('sell')">📦 পণ্য বিক্রি করুন</button>
+                            </div>
+                        </div>
+                        <div class="hero-right">
+                            <div class="hero-badge"><div class="hero-badge-dot"></div>অনলাইন আছে</div>
+                            <div class="hero-badge-wrap">
+                                <div class="hero-badge-icon">🏪</div>
+                                <div class="hero-badge-label">সেরা বাজার<br>বাংলাদেশ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-grid" id="homeStats"></div>
+                <div class="home-layout">
+                    <div class="home-main">
+                        <div class="card">
+                            <div class="card-header"><div class="card-title">📢 সর্বশেষ নোটিশ</div><a onclick="goTab('notices')" style="font-size:12px;color:var(--primary);cursor:pointer;font-weight:600">সব দেখুন →</a></div>
+                            <div id="homeNotices"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><div class="card-title">🗂️ ক্যাটাগরি</div></div>
+                            <div class="category-cards" id="homeCategoryCards"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><div class="card-title">⭐ জনপ্রিয় পণ্য</div><a onclick="goTab('products')" style="font-size:12px;color:var(--primary);cursor:pointer;font-weight:600">সব দেখুন →</a></div>
+                            <div class="products-grid" id="homeProducts"></div>
+                        </div>
+                    </div>
+                    <div class="home-sidebar">
+                        <div class="sidebar-widget urgent">
+                            <div class="sidebar-widget-title">🚨 বিশেষ ঘোষণা</div>
+                            <div class="sidebar-widget-text">বিশেষ ডিসকাউন্ট!</div>
+                            <div class="sidebar-widget-sub">নতুন ক্রেতাদের জন্য প্রথম অর্ডারে ১০% ছাড়। কোড: <strong>SERA10</strong></div>
+                        </div>
+                        <div class="sidebar-widget">
+                            <div class="sidebar-widget-title">📞 যোগাযোগ</div>
+                            <div class="sidebar-contact-row"><span>👤</span><div><div class="sc-label">পরিচালক</div><div class="sc-val">মোঃ আব্দুল্লাহ আল মামুন</div></div></div>
+                            <div class="sidebar-contact-row"><span>📱</span><div><div class="sc-label">মোবাইল</div><div class="sc-val">01775-246863<br>01866-106824</div></div></div>
+                            <div class="sidebar-contact-row"><span>⏰</span><div><div class="sc-label">সেবার সময়</div><div class="sc-val">সকাল ৯টা – রাত ১০টা</div></div></div>
+                        </div>
+                        <div class="sidebar-widget">
+                            <div class="sidebar-widget-title">⚡ কুইক লিংক</div>
+                            <div class="quick-link-item" onclick="goTab('products')">🛍️ পণ্য ব্রাউজ করুন</div>
+                            <div class="quick-link-item" onclick="goTab('sell')">📦 পণ্য বিক্রি করুন</div>
+                            <div class="quick-link-item" onclick="goTab('cart')">🛒 আমার কার্ট</div>
+                            <div class="quick-link-item" onclick="goTab('chat')">💬 লাইভ চ্যাট</div>
+                            <div class="quick-link-item" onclick="goTab('myorders')">📦 আমার অর্ডার</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PRODUCTS ========== -->
+            <div class="tab-content" id="tab-products">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🛍️ সকল পণ্য</div>
+                        <span class="badge badge-approved" id="productCount">0টি</span>
+                    </div>
+                    <input type="text" id="productSearch" class="form-control mb-4" placeholder="🔍 পণ্য খুঁজুন..." oninput="renderProducts()" style="max-width:320px;margin-bottom:14px">
+                    <div class="filter-chips" id="productsFilter"></div>
+                    <div class="products-grid" id="productsContainer"></div>
+                </div>
+            </div>
+
+            <!-- ========== CART ========== -->
+            <div class="tab-content" id="tab-cart">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">🛒 আমার কার্ট</div></div>
+                    <div id="cartContainer"></div>
+                </div>
+            </div>
+
+            <!-- ========== WISHLIST ========== -->
+            <div class="tab-content" id="tab-wishlist">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">❤️ আমার উইশলিস্ট</div></div>
+                    <div id="wishlistContainer"></div>
+                </div>
+            </div>
+
+            <!-- ========== MY ORDERS ========== -->
+            <div class="tab-content" id="tab-myorders">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">📦 আমার অর্ডার</div></div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>অর্ডার ID</th><th>পণ্য</th><th>মোট</th><th>তারিখ</th><th>স্ট্যাটাস</th><th>পেমেন্ট</th><th>বিস্তারিত</th></tr></thead>
+                            <tbody id="myOrdersBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== SELL (Seller Dashboard) ========== -->
+            <div class="tab-content" id="tab-sell">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">📦 আমার বিক্রয় ড্যাশবোর্ড</div></div>
+                    <div class="seller-stats" id="sellerStats"></div>
+                    <div class="admin-inner-tabs">
+                        <button class="admin-inner-tab active" onclick="sellerTab('sellProducts',this)">📋 আমার পণ্য</button>
+                        <button class="admin-inner-tab" onclick="sellerTab('sellAdd',this)">➕ নতুন পণ্য যোগ</button>
+                        <button class="admin-inner-tab" onclick="sellerTab('sellOrders',this)">📦 অর্ডারসমূহ</button>
+                    </div>
+                    <div id="sellProducts" class="seller-section">
+                        <div class="products-grid" id="sellerProductsGrid"></div>
+                    </div>
+                    <div id="sellAdd" class="seller-section hidden">
+                        <div class="seller-product-form">
+                            <div class="form-grid">
+                                <div class="form-group"><label class="form-label">পণ্যের নাম <span class="required-star">*</span></label><input class="form-control" id="prodName" type="text" placeholder="পণ্যের নাম"></div>
+                                <div class="form-group"><label class="form-label">ক্যাটাগরি <span class="required-star">*</span></label>
+                                    <select class="form-control" id="prodCategory">
+                                        <option>ইলেকট্রনিক্স</option><option>ফ্যাশন</option><option>ঘরোয়া সামগ্রী</option>
+                                        <option>সৌন্দর্য ও স্বাস্থ্য</option><option>খেলাধুলা</option><option>অটোমোটিভ</option>
+                                        <option>শিশুপণ্য</option><option>বই ও শিক্ষা</option><option>অন্যান্য</option>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label class="form-label">দাম (টাকা) <span class="required-star">*</span></label><input class="form-control" id="prodPrice" type="number" placeholder="০"></div>
+                                <div class="form-group"><label class="form-label">ছাড় (%)</label><input class="form-control" id="prodDiscount" type="number" placeholder="০" value="0"></div>
+                                <div class="form-group"><label class="form-label">স্টক <span class="required-star">*</span></label><input class="form-control" id="prodStock" type="number" placeholder="১০" value="10"></div>
+                                <div class="form-group"><label class="form-label">ছবির URL</label><input class="form-control" id="prodImage" type="url" placeholder="https://example.com/image.jpg"></div>
+                            </div>
+                            <div class="form-group"><label class="form-label">বিবরণ</label><textarea class="form-control" id="prodDesc" rows="3" placeholder="পণ্যের বিস্তারিত বিবরণ..."></textarea></div>
+                            <button class="btn btn-navy" onclick="saveProduct()">💾 পণ্য সংরক্ষণ করুন</button>
+                            <span id="sellProductMsg" style="margin-left:12px;font-size:12px;"></span>
+                        </div>
+                    </div>
+                    <div id="sellOrders" class="seller-section hidden">
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>অর্ডার ID</th><th>পণ্য</th><th>ক্রেতা</th><th>পরিমাণ</th><th>মোট</th><th>স্ট্যাটাস</th></tr></thead>
+                                <tbody id="sellerOrdersBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== CHAT ========== -->
+            <div class="tab-content" id="tab-chat">
+                <div class="card p-0">
+                    <div class="chat-layout">
+                        <div class="chat-sidebar">
+                            <div class="chat-sidebar-header">💬 বার্তা</div>
+                            <div class="chat-search-wrap">
+                                <input type="text" id="chatSearch" class="chat-search-input" placeholder="🔍 নাম খুঁজুন..." oninput="renderChatList()">
+                            </div>
+                            <div id="chatList"></div>
+                        </div>
+                        <div class="chat-main">
+                            <div class="chat-header">
+                                <div class="chat-status"></div>
+                                <div style="font-size:13px;font-weight:700" id="chatTargetName">ব্যবহারকারী নির্বাচন করুন</div>
+                            </div>
+                            <div class="chat-body" id="chatBody">
+                                <div style="text-align:center;padding:30px;color:var(--gray-400);font-size:13px;">বামে থেকে ব্যবহারকারী নির্বাচন করুন</div>
+                            </div>
+                            <div class="chat-input-row">
+                                <input class="chat-input" id="chatMsgInput" placeholder="বার্তা লিখুন..." onkeypress="if(event.key==='Enter') sendChatMsg()">
+                                <button class="chat-send-btn" onclick="sendChatMsg()">পাঠান ➤</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PROFILE ========== -->
+            <div class="tab-content" id="tab-profile">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">👤 প্রোফাইল</div></div>
+                    <div id="profileContent"></div>
+                </div>
+            </div>
+
+            <!-- ========== NOTICES ========== -->
+            <div class="tab-content" id="tab-notices">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">📢 নোটিশ বোর্ড</div></div>
+                    <div id="noticesBoard"></div>
+                </div>
+            </div>
+
+            <!-- ========== CONTACT ========== -->
+            <div class="tab-content" id="tab-contact">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">📞 যোগাযোগ</div></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <div>
+                            <div style="margin-bottom:16px;">
+                                <div style="font-weight:700;font-size:1.1rem;">সেরা বাজার</div>
+                                <div style="color:var(--gray-400);font-size:12px;">বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস</div>
+                            </div>
+                            <div class="sidebar-contact-row"><span>👤</span><div><div class="sc-label">পরিচালক</div><div class="sc-val">মোঃ আব্দুল্লাহ আল মামুন</div></div></div>
+                            <div class="sidebar-contact-row"><span>📱</span><div><div class="sc-label">মোবাইল</div><div class="sc-val">01775-246863<br>01866-106824</div></div></div>
+                            <div class="sidebar-contact-row"><span>📧</span><div><div class="sc-label">ইমেইল</div><div class="sc-val">sera.bazar@example.com</div></div></div>
+                            <div class="sidebar-contact-row"><span>⏰</span><div><div class="sc-label">সেবার সময়</div><div class="sc-val">সকাল ৯টা – রাত ১০টা</div></div></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label class="form-label">আপনার নাম</label><input class="form-control" id="contactName" type="text" placeholder="নাম"></div>
+                            <div class="form-group"><label class="form-label">মোবাইল</label><input class="form-control" id="contactPhone" type="tel" placeholder="01XXXXXXXXX"></div>
+                            <div class="form-group"><label class="form-label">বার্তা <span class="required-star">*</span></label><textarea class="form-control" id="contactMsg" rows="3" placeholder="আপনার বার্তা লিখুন..."></textarea></div>
+                            <button class="btn btn-navy" onclick="sendContactMsg()">📨 পাঠান</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== ADMIN DASHBOARD ========== -->
+            <div class="tab-content" id="tab-admin">
+                <div class="card">
+                    <div class="card-header"><div class="card-title">⚡ অ্যাডমিন ড্যাশবোর্ড</div></div>
+                    <div class="admin-stats" id="adminStats"></div>
+                    <div class="admin-inner-tabs">
+                        <button class="admin-inner-tab active" onclick="adminTab('adminOverview',this)">📊 ওভারভিউ</button>
+                        <button class="admin-inner-tab" onclick="adminTab('adminProducts',this)">🛍️ পণ্য</button>
+                        <button class="admin-inner-tab" onclick="adminTab('adminOrders',this)">📦 অর্ডার</button>
+                        <button class="admin-inner-tab" onclick="adminTab('adminUsers',this)">👥 ব্যবহারকারী</button>
+                        <button class="admin-inner-tab" onclick="adminTab('adminCategories',this)">🗂️ ক্যাটাগরি</button>
+                        <button class="admin-inner-tab" onclick="adminTab('adminNotices',this)">📢 নোটিশ</button>
+                        <button class="admin-inner-tab" onclick="adminTab('adminSettings',this)">🔧 সেটিংস</button>
+                    </div>
+                    <div id="adminOverview" class="admin-section">
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                            <div><div class="card-title" style="font-size:0.9rem;margin-bottom:10px;">সর্বশেষ অর্ডার</div><div id="adminRecentOrders"></div></div>
+                            <div><div class="card-title" style="font-size:0.9rem;margin-bottom:10px;">দ্রুত অ্যাকশন</div>
+                                <div style="display:flex;flex-direction:column;gap:8px;">
+                                    <button class="btn btn-navy btn-icon btn-sm" onclick="adminTab('adminProducts',document.querySelector('.admin-inner-tab'))">🛍️ পণ্য ব্যবস্থাপনা</button>
+                                    <button class="btn btn-gold btn-icon btn-sm" onclick="adminTab('adminOrders',document.querySelector('.admin-inner-tab'))">📦 অর্ডার ব্যবস্থাপনা</button>
+                                    <button class="btn btn-green btn-icon btn-sm" onclick="adminTab('adminUsers',document.querySelector('.admin-inner-tab'))">👥 ব্যবহারকারী ব্যবস্থাপনা</button>
+                                    <button class="btn btn-ghost btn-icon btn-sm" onclick="exportAllData()">💾 ব্যাকআপ ডাউনলোড</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="adminProducts" class="admin-section hidden">
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+                            <input type="text" id="adminProductSearch" class="form-control" placeholder="🔍 পণ্য খুঁজুন..." style="max-width:240px;font-size:12px;padding:6px 12px;" oninput="renderAdminProducts()">
+                            <button class="btn btn-navy btn-sm" onclick="document.getElementById('adminProductSearch').value='';renderAdminProducts();">সব দেখুন</button>
+                        </div>
+                        <div class="table-wrap"><table><thead><tr><th>#</th><th>পণ্য</th><th>বিক্রেতা</th><th>দাম</th><th>স্টক</th><th>অ্যাকশন</th></tr></thead><tbody id="adminProductsBody"></tbody></table></div>
+                    </div>
+                    <div id="adminOrders" class="admin-section hidden">
+                        <div class="table-wrap"><table><thead><tr><th>অর্ডার ID</th><th>ক্রেতা</th><th>পণ্য</th><th>মোট</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr></thead><tbody id="adminOrdersBody"></tbody></table></div>
+                    </div>
+                    <div id="adminUsers" class="admin-section hidden">
+                        <div class="table-wrap"><table><thead><tr><th>#</th><th>নাম</th><th>মোবাইল</th><th>ভূমিকা</th><th>যাচাই</th><th>অ্যাকশন</th></tr></thead><tbody id="adminUsersBody"></tbody></table></div>
+                    </div>
+                    <div id="adminCategories" class="admin-section hidden">
+                        <div style="display:flex;gap:8px;max-width:420px;margin-bottom:14px;">
+                            <input id="newCatInput" type="text" class="form-control" placeholder="নতুন ক্যাটাগরি" style="flex:1;">
+                            <button class="btn btn-navy" onclick="addAdminCategory()">+ যোগ</button>
+                        </div>
+                        <div id="adminCategoryList" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+                    </div>
+                    <div id="adminNotices" class="admin-section hidden">
+                        <div style="display:flex;gap:8px;max-width:100%;flex-wrap:wrap;margin-bottom:14px;">
+                            <input id="noticeTitle" type="text" class="form-control" placeholder="শিরোনাম" style="flex:1;min-width:160px;">
+                            <input id="noticeBody" type="text" class="form-control" placeholder="বিবরণ" style="flex:2;min-width:200px;">
+                            <select id="noticeType" class="form-control" style="width:auto;flex:0 0 120px;">
+                                <option value="info">তথ্য</option><option value="warning">সতর্কতা</option><option value="success">সফলতা</option><option value="danger">জরুরি</option>
+                            </select>
+                            <button class="btn btn-navy" onclick="addAdminNotice()">📢 প্রকাশ</button>
+                        </div>
+                        <div id="adminNoticeList"></div>
+                    </div>
+                    <div id="adminSettings" class="admin-section hidden">
+                        <div class="form-grid-2">
+                            <div class="form-group"><label class="form-label">সাইটের নাম</label><input class="form-control" id="setSiteName" type="text"></div>
+                            <div class="form-group"><label class="form-label">ট্যাগলাইন</label><input class="form-control" id="setTagline" type="text"></div>
+                            <div class="form-group"><label class="form-label">ফোন</label><input class="form-control" id="setPhone" type="text"></div>
+                            <div class="form-group"><label class="form-label">ইমেইল</label><input class="form-control" id="setEmail" type="email"></div>
+                        </div>
+                        <button class="btn btn-navy" onclick="saveSiteSettings()">💾 সেটিংস সংরক্ষণ</button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end main-content -->
+
+        <footer class="footer">
+            <div class="footer-inner">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="f-name">সেরা <span>বাজার</span></div>
+                        <p id="footerAboutText">বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। ক্রেতা-বিক্রেতার সেতুবন্ধন, নিরাপদ লেনদেন ও সেরা সেবা।</p>
+                    </div>
+                    <div class="footer-contact">
+                        <h4>ক্যাটাগরি</h4>
+                        <p><a onclick="goCategory('ইলেকট্রনিক্স')">ইলেকট্রনিক্স</a><br><a onclick="goCategory('ফ্যাশন')">ফ্যাশন</a><br><a onclick="goCategory('ঘরোয়া সামগ্রী')">ঘরোয়া সামগ্রী</a><br><a onclick="goCategory('সৌন্দর্য ও স্বাস্থ্য')">সৌন্দর্য ও স্বাস্থ্য</a></p>
+                    </div>
+                    <div class="footer-contact">
+                        <h4>কুইক লিংক</h4>
+                        <p><a onclick="goTab('products')">পণ্য ব্রাউজ</a><br><a onclick="goTab('sell')">পণ্য বিক্রি</a><br><a onclick="goTab('cart')">কার্ট</a><br><a onclick="goTab('chat')">চ্যাট</a></p>
+                    </div>
+                    <div class="footer-contact">
+                        <h4>যোগাযোগ</h4>
+                        <p>📱 01775-246863<br>📱 01866-106824<br>📧 sera.bazar@example.com<br>👤 মোঃ আব্দুল্লাহ আল মামুন</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <strong>সেরা বাজার</strong> · বাংলাদেশের বিশ্বস্ত মার্কেটপ্লেস · © ২০২৫
+                </div>
+                <div class="footer-disclaimer" id="footerDisclaimerText">সর্বোচ্চ সচেতনতা ও নিরাপত্তার সাথে সেরা বাজার পরিচালিত হয়। তথ্যের যথার্থতা নিশ্চিত করতে সর্বদা চেষ্টা করা হয়।</div>
+            </div>
+        </footer>
+    </div><!-- end appShell -->
+
+    <div id="toastContainer"></div>
+
+    <script>
+        /* ============================================================
+           COMPLETE MARKETPLACE LOGIC — সেরা বাজার
+           ============================================================ */
+        const DB_KEY = 'sera_bazar_db_v1';
+        const SESSION_KEY = 'sera_bazar_session_v1';
+
+        const DEFAULT_SETTINGS = {
+            siteName: 'সেরা বাজার',
+            tagline: 'বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস',
+            phone: '01775-246863',
+            phone2: '01866-106824',
+            email: 'sera.bazar@example.com',
+            manager: 'মোঃ আব্দুল্লাহ আল মামুন',
+            address: 'বাংলাদেশ',
+            heroSubtitle: 'সেরা বাজার — বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। কেনাকাটা, বিক্রয় ও লাইভ চ্যাট সবকিছু এক জায়গায়।',
+            aboutText: 'বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। ক্রেতা-বিক্রেতার সেতুবন্ধন, নিরাপদ লেনদেন ও সেরা সেবা।',
+            footerNote: 'সর্বোচ্চ সচেতনতা ও নিরাপত্তার সাথে সেরা বাজার পরিচালিত হয়। তথ্যের যথার্থতা নিশ্চিত করতে সর্বদা চেষ্টা করা হয়।',
+            categories: ['ইলেকট্রনিক্স', 'ফ্যাশন', 'ঘরোয়া সামগ্রী', 'সৌন্দর্য ও স্বাস্থ্য', 'খেলাধুলা', 'অটোমোটিভ', 'শিশুপণ্য', 'বই ও শিক্ষা', 'অন্যান্য']
+        };
+
+        let db = {
+            users: [],
+            products: [],
+            orders: [],
+            cart: {},
+            wishlist: {},
+            chats: {},
+            notifications: {},
+            notices: [],
+            settings: { ...DEFAULT_SETTINGS }
+        };
+
+        let currentUser = null;
+        let chatTarget = null;
+        let lastChatUnread = 0;
+        let activeProductFilter = 'all';
+        let editingProductId = null;
+        let adminActiveTab = 'adminOverview';
+        let sellerActiveTab = 'sellProducts';
+        let regRole = 'buyer';
+
+        /* ============================== STORAGE ============================== */
+        function saveDB() {
+            try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch (e) { /* ignore */ }
+        }
+
+        function loadDB() {
+            try {
+                const raw = localStorage.getItem(DB_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    db = { ...db, ...parsed };
+                    db.settings = { ...DEFAULT_SETTINGS, ...db.settings };
+                }
+            } catch (e) { /* ignore */ }
+            if (!db.users) db.users = [];
+            if (!db.products) db.products = [];
+            if (!db.orders) db.orders = [];
+            if (!db.cart) db.cart = {};
+            if (!db.wishlist) db.wishlist = {};
+            if (!db.chats) db.chats = {};
+            if (!db.notifications) db.notifications = {};
+            if (!db.notices) db.notices = [];
+            if (!db.settings) db.settings = { ...DEFAULT_SETTINGS };
+            if (!db.settings.categories || !db.settings.categories.length) db.settings.categories = [...DEFAULT_SETTINGS
+                .categories
+            ];
+            seedDefaultData();
+        }
+
+        function seedDefaultData() {
+            if (!db.users.length) {
+                db.users.push({ id: 'u1', name: 'মোঃ আব্দুল্লাহ আল মামুন', phone: '01775246863', email: 'admin@serabazar.com',
+                    password: 'admin123', role: 'admin', verified: true, createdAt: new Date().toISOString() });
+                db.users.push({ id: 'u2', name: 'সেরা ক্রেতা', phone: '01866106824', email: 'buyer@example.com',
+                    password: 'buyer123', role: 'buyer', verified: true, createdAt: new Date().toISOString() });
+                db.users.push({ id: 'u3', name: 'সেরা বিক্রেতা', phone: '01711223344', email: 'seller@example.com',
+                    password: 'seller123', role: 'seller', verified: true, createdAt: new Date().toISOString() });
+            }
+            if (!db.products.length) {
+                db.products.push({ id: 'p1', name: 'স্যামসাং গ্যালাক্সি এস২৪', category: 'ইলেকট্রনিক্স', price: 99999,
+                    discount: 10, stock: 15,
+                    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80',
+                    desc: 'সর্বশেষ স্মার্টফোন, উন্নত ক্যামেরা ও পারফরম্যান্স।', sellerId: 'u3', rating: 4.5, reviewCount: 120,
+                    createdAt: new Date().toISOString() });
+                db.products.push({ id: 'p2', name: 'এপল আইফোন ১৫ প্রো ম্যাক্স', category: 'ইলেকট্রনিক্স', price: 149999,
+                    discount: 5, stock: 8,
+                    image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80',
+                    desc: 'প্রিমিয়াম স্মার্টফোন, টাইটানিয়াম বডি, এ১৭ প্রো চিপ।', sellerId: 'u3', rating: 4.8, reviewCount: 85,
+                    createdAt: new Date().toISOString() });
+                db.products.push({ id: 'p3', name: 'এচপি ভিক্টাস গেমিং ল্যাপটপ', category: 'ইলেকট্রনিক্স', price: 125999,
+                    discount: 15, stock: 6,
+                    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80',
+                    desc: 'গেমিং ল্যাপটপ, আরটিএক্স ৪০৬০, ১৬ জিবি র্যাম।', sellerId: 'u3', rating: 4.3, reviewCount: 42,
+                    createdAt: new Date().toISOString() });
+                db.products.push({ id: 'p4', name: 'সনি হেডফোন WH-1000XM5', category: 'ইলেকট্রনিক্স', price: 27999,
+                    discount: 12, stock: 20,
+                    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80',
+                    desc: 'নয়েজ ক্যান্সেলিং হেডফোন, প্রিমিয়াম সাউন্ড কোয়ালিটি।', sellerId: 'u3', rating: 4.7, reviewCount: 210,
+                    createdAt: new Date().toISOString() });
+                db.products.push({ id: 'p5', name: 'মেনস ফ্যাশন শার্ট', category: 'ফ্যাশন', price: 1199, discount: 20,
+                    stock: 50,
+                    image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80',
+                    desc: 'উচ্চ মানের কটন শার্ট, আরামদায়ক ও স্টাইলিশ।', sellerId: 'u3', rating: 4.2, reviewCount: 65,
+                    createdAt: new Date().toISOString() });
+                db.products.push({ id: 'p6', name: 'কিচেন টুলস সেট', category: 'ঘরোয়া সামগ্রী', price: 3499, discount: 25,
+                    stock: 30,
+                    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80',
+                    desc: '১৫ পিস কিচেন টুলস সেট, স্টেইনলেস স্টিল।', sellerId: 'u3', rating: 4.0, reviewCount: 38,
+                    createdAt: new Date().toISOString() });
+            }
+            if (!db.notices.length) {
+                db.notices.push({ id: 'n1', title: '🎉 সেরা বাজারে স্বাগতম!',
+                    body: 'বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস। ক্রেতা-বিক্রেতা সবাই এক প্ল্যাটফর্মে।', type: 'success',
+                    date: new Date().toISOString() });
+                db.notices.push({ id: 'n2', title: '🚚 ডেলিভারি চার্জ ফ্রি', body: 'প্রথম অর্ডারে ডেলিভারি চার্জ সম্পূর্ণ ফ্রি। কোড: SERA10',
+                    type: 'warning', date: new Date().toISOString() });
+                db.notices.push({ id: 'n3', title: '💬 লাইভ চ্যাট চালু',
+                    body: 'ক্রেতা-বিক্রেতা সরাসরি চ্যাটের মাধ্যমে যোগাযোগ করতে পারবেন।', type: 'info',
+                    date: new Date().toISOString() });
+            }
+            saveDB();
+        }
+
+        /* ============================== AUTH ============================== */
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach((t, i) => t.classList.toggle('active', ['login', 'register'][i] ===
+                tab));
+            document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
+            document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+        }
+
+        function showAuthPage(msg) {
+            document.getElementById('authPage').classList.remove('hidden');
+        }
+
+        function hideAuthPage() {
+            document.getElementById('authPage').classList.add('hidden');
+        }
+
+        function setRegRole(role, btn) {
+            regRole = role;
+            document.querySelectorAll('.auth-role-selector button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const shopReq = document.getElementById('shopNameReq');
+            const shopGroup = document.getElementById('shopNameGroup');
+            if (role === 'seller') {
+                shopReq.textContent = '*';
+                shopGroup.style.display = 'block';
+                document.getElementById('regShopName').required = true;
+            } else {
+                shopReq.textContent = '(ঐচ্ছিক)';
+                shopGroup.style.display = 'block';
+                document.getElementById('regShopName').required = false;
+            }
+        }
+
+        function doLogin() {
+            const input = document.getElementById('loginPhone').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            const msg = document.getElementById('loginMsg');
+            if (!input || !pass) { showAuthMsg(msg, 'মোবাইল/ইমেইল ও পাসওয়ার্ড দিন।', 'error'); return; }
+            const user = db.users.find(u =>
+                (u.phone === input || u.email === input) &&
+                u.password === pass &&
+                u.role !== 'admin'
+            );
+            if (!user) { showAuthMsg(msg, 'তথ্য সঠিক নয়।', 'error'); return; }
+            loginUser(user);
+        }
+
+        function doAdminLogin() {
+            const input = document.getElementById('loginPhone').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            const msg = document.getElementById('adminLoginMsg');
+            if (input === 'admin' && pass === db.settings.adminPassword) {
+                const admin = db.users.find(u => u.role === 'admin') || { id: 'admin', name: 'অ্যাডমিন', phone: 'admin',
+                    email: 'admin@serabazar.com', role: 'admin', verified: true, createdAt: new Date().toISOString() };
+                loginUser(admin);
+            } else {
+                const adminUser = db.users.find(u => u.role === 'admin' && (u.phone === input || u.email === input) && u
+                    .password === pass);
+                if (adminUser) { loginUser(adminUser); } else { showAuthMsg(msg, 'অ্যাডমিন তথ্য সঠিক নয়।', 'error'); }
+            }
+        }
+
+        function doRegister() {
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const shopName = document.getElementById('regShopName').value.trim();
+            const role = regRole || 'buyer';
+            const pass = document.getElementById('regPass').value.trim();
+            const pass2 = document.getElementById('regPass2').value.trim();
+            const terms = document.getElementById('regTerms').checked;
+            const msg = document.getElementById('registerMsg');
+            if (!name || !phone || !pass) { showAuthMsg(msg, 'নাম, মোবাইল ও পাসওয়ার্ড আবশ্যক।', 'error'); return; }
+            if (!/^01[3-9]\d{8}$/.test(phone)) { showAuthMsg(msg, 'সঠিক মোবাইল নম্বর দিন।', 'error'); return; }
+            if (role === 'seller' && !shopName) { showAuthMsg(msg, 'বিক্রেতার জন্য দোকানের নাম আবশ্যক।', 'error'); return; }
+            if (pass.length < 6) { showAuthMsg(msg, 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষর।', 'error'); return; }
+            if (pass !== pass2) { showAuthMsg(msg, 'পাসওয়ার্ড মিলছে না।', 'error'); return; }
+            if (!terms) { showAuthMsg(msg, 'শর্তাবলী মেনে নিন।', 'error'); return; }
+            if (db.users.find(u => u.phone === phone)) { showAuthMsg(msg, 'এই মোবাইলে ইতিমধ্যে অ্যাকাউন্ট আছে।', 'error'); return; }
+            const user = {
+                id: 'u' + Date.now(),
+                name,
+                phone,
+                email,
+                password: pass,
+                role: role,
+                shopName: role === 'seller' ? shopName : '',
+                verified: false,
+                createdAt: new Date().toISOString()
+            };
+            db.users.push(user);
+            if (!db.notifications[user.id]) db.notifications[user.id] = [];
+            db.notifications[user.id].push({ id: 'n' + Date.now(), title: '🎉 অ্যাকাউন্ট তৈরি!',
+                body: `${name}, সেরা বাজারে স্বাগতম।`, read: false, date: new Date().toISOString() });
+            saveDB();
+            showAuthMsg(msg, '✅ নিবন্ধন সফল! এখন লগইন করুন।', 'success');
+            setTimeout(() => switchAuthTab('login'), 1500);
+        }
+
+        function loginUser(user) {
+            currentUser = user;
+            try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({ id: user.id, role: user.role })); } catch (e) {}
+            hideAuthPage();
+            document.getElementById('appShell').classList.add('show');
+            buildNav();
+            buildBottomNav();
+            updateHeaderUser();
+            updateNotifBadge();
+            updateChatNavBadges();
+            if (user.role === 'admin') goTab('admin');
+            else if (user.role === 'seller') goTab('sell');
+            else goTab('home');
+            toast(`স্বাগতম, ${user.name}! 👋`, 'success');
+        }
+
+        function restoreSession() {
+            try {
+                const raw = sessionStorage.getItem(SESSION_KEY);
+                if (!raw) return;
+                const s = JSON.parse(raw);
+                const user = db.users.find(u => u.id === s.id);
+                if (user) { currentUser = user;
+                    updateHeaderUser();
+                    updateNotifBadge();
+                    updateChatNavBadges(); } else { sessionStorage.removeItem(SESSION_KEY); }
+            } catch (e) {}
+        }
+
+        function doLogout() {
+            currentUser = null;
+            chatTarget = null;
+            try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+            buildNav();
+            buildBottomNav();
+            updateHeaderUser();
+            goTab('home');
+            toast('লগআউট সফল।', 'info');
+        }
+
+        function togglePass(id, el) {
+            const inp = document.getElementById(id);
+            if (inp.type === 'password') { inp.type = 'text';
+                el.textContent = '🙈'; } else { inp.type = 'password';
+                el.textContent = '👁️'; }
+        }
+
+        function showAuthMsg(el, msg, type) {
+            el.innerHTML = `<div class="auth-msg ${type}">${msg}</div>`;
+            setTimeout(() => el.innerHTML = '', 4000);
+        }
+
+        /* ============================== NAVIGATION ============================== */
+        const ALL_TABS = [
+            { id: 'home', label: 'হোম', icon: '🏠' },
+            { id: 'products', label: 'পণ্য', icon: '🛍️' },
+            { id: 'cart', label: 'কার্ট', icon: '🛒' },
+            { id: 'wishlist', label: 'উইশলিস্ট', icon: '❤️' },
+            { id: 'myorders', label: 'অর্ডার', icon: '📦' },
+            { id: 'sell', label: 'বিক্রি', icon: '📦', seller: true },
+            { id: 'chat', label: 'চ্যাট', icon: '💬' },
+            { id: 'profile', label: 'প্রোফাইল', icon: '👤' },
+            { id: 'notices', label: 'নোটিশ', icon: '📢' },
+            { id: 'contact', label: 'যোগাযোগ', icon: '📞' },
+            { id: 'admin', label: 'অ্যাডমিন', icon: '⚡', admin: true }
+        ];
+
+        function getVisibleTabs() {
+            if (!currentUser) return ALL_TABS.filter(t => !t.admin && !t.seller && t.id !== 'sell' && t.id !== 'myorders' && t
+                .id !== 'wishlist' && t.id !== 'cart' && t.id !== 'profile');
+            if (currentUser.role === 'admin') return ALL_TABS.filter(t => t.admin || !t.seller);
+            if (currentUser.role === 'seller') return ALL_TABS.filter(t => !t.admin);
+            return ALL_TABS.filter(t => !t.admin && !t.seller);
+        }
+
+        function buildNav() {
+            const tabs = getVisibleTabs();
+            document.getElementById('navBar').innerHTML = tabs.map(t => {
+                const chatBadge = (t.id === 'chat') ? `<span class="nav-chat-badge hidden" id="navChatBadge">0</span>` :
+                    '';
+                const lock = (!currentUser && t.id !== 'home' && t.id !== 'products' && t.id !== 'notices' && t.id !==
+                    'contact') ? '<span class="nav-lock">🔒</span>' : '';
+                return `<div class="nav-item" id="nav-${t.id}" onclick="goTab('${t.id}')"><span class="nav-icon">${t.icon}</span>${t.label}${lock}${chatBadge}</div>`;
+            }).join('');
+        }
+
+        function buildBottomNav() {
+            const tabs = getVisibleTabs();
+            const bottomItems = tabs.filter(t => t.id !== 'admin' && t.id !== 'notices' && t.id !== 'contact');
+            const el = document.getElementById('bottomNav');
+            el.innerHTML = bottomItems.slice(0, 5).map(t => {
+                if (t.id === 'sell' && currentUser?.role === 'seller') {
+                    return `<div class="bn-item bn-cta" id="bn-${t.id}" onclick="goTab('${t.id}')"><div class="bn-icon-wrap">${t.icon}</div>${t.label}</div>`;
+                }
+                const chatBadge = (t.id === 'chat') ?
+                    `<span class="bn-chat-badge hidden" id="bnChatBadge">0</span>` : '';
+                return `<div class="bn-item" id="bn-${t.id}" onclick="goTab('${t.id}')">${chatBadge}<span class="bn-icon">${t.icon}</span>${t.label}</div>`;
+            }).join('');
+        }
+
+        function syncBottomNav(tabId) {
+            document.querySelectorAll('.bn-item').forEach(el => el.classList.remove('active'));
+            const el = document.getElementById('bn-' + tabId);
+            if (el) el.classList.add('active');
+        }
+
+        function goTab(tabId) {
+            const gated = ['cart', 'wishlist', 'myorders', 'sell', 'chat', 'profile', 'admin'];
+            if (gated.includes(tabId) && !currentUser) {
+                showAuthPage('🔒 এই সুবিধাটি ব্যবহার করতে লগইন করুন।');
+                return;
+            }
+            if (tabId === 'admin' && currentUser?.role !== 'admin') { toast('অ্যাডমিন অ্যাক্সেস নেই।', 'error'); return; }
+            if (tabId === 'sell' && currentUser?.role !== 'seller' && currentUser?.role !== 'admin') {
+                toast('বিক্রেতা অ্যাকাউন্ট প্রয়োজন।', 'warning');
+                return;
+            }
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            const el = document.getElementById('tab-' + tabId);
+            if (el) el.classList.add('active');
+            const nav = document.getElementById('nav-' + tabId);
+            if (nav) nav.classList.add('active');
+            syncBottomNav(tabId);
+            window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+            onTabActivate(tabId);
+        }
+
+        function onTabActivate(id) {
+            if (id === 'home') renderHome();
+            if (id === 'products') renderProducts();
+            if (id === 'cart') renderCart();
+            if (id === 'wishlist') renderWishlist();
+            if (id === 'myorders') renderMyOrders();
+            if (id === 'sell') renderSellerDashboard();
+            if (id === 'chat') renderChatList();
+            if (id === 'profile') renderProfile();
+            if (id === 'notices') renderNotices();
+            if (id === 'admin') renderAdminDashboard();
+        }
+
+        function goCategory(cat) {
+            activeProductFilter = cat;
+            goTab('products');
+            setTimeout(() => renderProducts(), 50);
+        }
+
+        /* ============================== HEADER / USER ============================== */
+        function updateHeaderUser() {
+            const guestBtn = document.getElementById('guestLoginBtn');
+            const pill = document.querySelector('.user-pill');
+            if (!currentUser) {
+                if (guestBtn) guestBtn.classList.remove('hidden');
+                if (pill) pill.classList.add('hidden');
+                return;
+            }
+            if (guestBtn) guestBtn.classList.add('hidden');
+            if (pill) pill.classList.remove('hidden');
+            const av = currentUser.name.charAt(0);
+            ['headerAv', 'ddAv'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = av; });
+            document.getElementById('headerName').textContent = currentUser.name;
+            const roleMap = { admin: 'অ্যাডমিন', seller: 'বিক্রেতা', buyer: 'ক্রেতা' };
+            document.getElementById('headerRole').textContent = roleMap[currentUser.role] || 'সদস্য';
+            document.getElementById('ddName').textContent = currentUser.name;
+            document.getElementById('ddRole').textContent = roleMap[currentUser.role] || 'সদস্য';
+            updateNotifBadge();
+        }
+
+        function toggleUserMenu() {
+            document.getElementById('userDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.user-pill')) document.getElementById('userDropdown')?.classList.remove('open');
+        });
+
+        /* ============================== NOTIFICATIONS ============================== */
+        function toggleNotifPanel() {
+            const p = document.getElementById('notifPanel');
+            const o = document.getElementById('panelOverlay');
+            const open = p.style.right === '0px';
+            p.style.right = open ? '-360px' : '0px';
+            o.style.display = open ? 'none' : 'block';
+            if (!open) renderNotifPanel();
+        }
+
+        function renderNotifPanel() {
+            const el = document.getElementById('notifPanelBody');
+            if (!currentUser) { el.innerHTML =
+                    '<div style="text-align:center;padding:30px;color:var(--gray-400)">লগইন করুন</div>'; return; }
+            const notifs = (db.notifications[currentUser.id] || []).slice().reverse();
+            el.innerHTML = notifs.length ? notifs.map(n =>
+                    `<div class="notif-item ${n.read?'':'unread'}" onclick="markNotifRead('${n.id}')" style="padding:12px 14px;border-radius:10px;cursor:pointer;transition:var(--transition);margin-bottom:6px;border:1px solid transparent;${n.read?'':'background:var(--blue-light);border-color:rgba(37,99,235,0.15);'}">
+                <div style="font-weight:700;font-size:13px;color:var(--gray-800)">${n.title}</div>
+                <div style="font-size:12px;color:var(--gray-600);margin-top:3px;">${n.body}</div>
+                <div style="font-size:10px;color:var(--gray-400);margin-top:5px;">${timeAgo(n.date)}</div>
+              </div>`
+                ).join('') :
+                '<div style="text-align:center;padding:30px;color:var(--gray-400)">কোনো নোটিফিকেশন নেই।</div>';
+        }
+
+        function markNotifRead(id) {
+            const n = (db.notifications[currentUser.id] || []).find(n => n.id === id);
+            if (n) { n.read = true;
+                saveDB();
+                updateNotifBadge();
+                renderNotifPanel(); }
+        }
+
+        function markAllRead() {
+            (db.notifications[currentUser.id] || []).forEach(n => n.read = true);
+            saveDB();
+            updateNotifBadge();
+            renderNotifPanel();
+            toast('সব নোটিফিকেশন পড়া হয়েছে ✅', 'success');
+        }
+
+        function updateNotifBadge() {
+            if (!currentUser) return;
+            const count = (db.notifications[currentUser.id] || []).filter(n => !n.read).length;
+            const badge = document.getElementById('notifCount');
+            badge.textContent = count;
+            badge.classList.toggle('hidden', count === 0);
+        }
+
+        function addNotification(userId, title, body) {
+            if (!db.notifications[userId]) db.notifications[userId] = [];
+            db.notifications[userId].push({ id: 'n' + Date.now(), title, body, read: false, date: new Date().toISOString() });
+            if (currentUser && currentUser.id === userId) updateNotifBadge();
+            saveDB();
+        }
+
+        /* ============================== CHAT ============================== */
+        function getChatId(userA, userB) {
+            const ids = [userA, userB].sort();
+            return ids.join('_');
+        }
+
+        function chatUnreadCount(chatId, userId) {
+            const msgs = db.chats[chatId] || [];
+            const lastRead = db.chatReads?.[chatId]?.[userId] || null;
+            if (!lastRead) return msgs.filter(m => m.from !== userId).length;
+            return msgs.filter(m => m.from !== userId && new Date(m.date) > new Date(lastRead)).length;
+        }
+
+        function markChatRead(chatId, userId) {
+            if (!db.chatReads) db.chatReads = {};
+            if (!db.chatReads[chatId]) db.chatReads[chatId] = {};
+            db.chatReads[chatId][userId] = new Date().toISOString();
+            saveDB();
+        }
+
+        function updateChatNavBadges() {
+            if (!currentUser) return;
+            let total = 0;
+            const userList = db.users.filter(u => u.id !== currentUser.id);
+            userList.forEach(u => {
+                const cid = getChatId(currentUser.id, u.id);
+                total += chatUnreadCount(cid, currentUser.id);
+            });
+            ['navChatBadge', 'bnChatBadge'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.textContent = total > 9 ? '9+' : String(total);
+                el.classList.toggle('hidden', total === 0);
+            });
+            if (total > lastChatUnread && !document.querySelector('#tab-chat.active') && !document.querySelector(
+                    '#tab-admin.active')) {
+                toast('নতুন বার্তা এসেছে 💬', 'info');
+            }
+            lastChatUnread = total;
+        }
+
+        function renderChatList() {
+            if (!currentUser) return;
+            const q = (document.getElementById('chatSearch')?.value || '').trim().toLowerCase();
+            let users = db.users.filter(u => u.id !== currentUser.id);
+            if (q) users = users.filter(u => u.name.toLowerCase().includes(q) || u.phone.includes(q));
+            const list = document.getElementById('chatList');
+            if (!users.length) {
+                list.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--gray-400);">কোনো ব্যবহারকারী নেই</div>';
+                return;
+            }
+            list.innerHTML = users.map(u => {
+                const cid = getChatId(currentUser.id, u.id);
+                const msgs = db.chats[cid] || [];
+                const last = msgs[msgs.length - 1];
+                const unread = chatUnreadCount(cid, currentUser.id);
+                const preview = last ? (last.from === currentUser.id ? 'আপনি: ' : '') + (last.text || '').slice(0,
+                    30) + ((last.text || '').length > 30 ? '…' : '') : 'বার্তা নেই';
+                const badge = unread > 0 ? `<div class="chat-unread">${unread>9?'9+':unread}</div>` : '';
+                const active = chatTarget === u.id ? 'active' : '';
+                return `<div class="chat-user-item ${active}" onclick="selectChat('${u.id}')">
+              <div class="chat-user-av">${(u.name||'?').charAt(0)}</div>
+              <div><div class="chat-user-name">${u.name}</div><div class="chat-user-preview">${preview}</div></div>
+              ${badge}
+            </div>`;
+            }).join('');
+        }
+
+        function selectChat(userId) {
+            chatTarget = userId;
+            const cid = getChatId(currentUser.id, userId);
+            if (chatUnreadCount(cid, currentUser.id) > 0) markChatRead(cid, currentUser.id);
+            renderChatList();
+            renderChatBody();
+            updateChatNavBadges();
+            document.getElementById('chatMsgInput')?.focus();
+        }
+
+        function renderChatBody() {
+            if (!currentUser || !chatTarget) return;
+            const cid = getChatId(currentUser.id, chatTarget);
+            const msgs = db.chats[cid] || [];
+            const user = db.users.find(u => u.id === chatTarget);
+            document.getElementById('chatTargetName').textContent = user ? user.name : 'ব্যবহারকারী';
+            const body = document.getElementById('chatBody');
+            if (!msgs.length) {
+                body.innerHTML =
+                    '<div style="text-align:center;padding:24px;color:var(--gray-400);font-size:13px;">কোনো বার্তা নেই। প্রথম বার্তা পাঠান।</div>';
+                return;
+            }
+            let html = '',
+                lastLabel = null;
+            msgs.forEach(m => {
+                const label = chatDateLabel(m.date);
+                if (label !== lastLabel) { html += `<div class="chat-date-divider"><span>${label}</span></div>`;
+                    lastLabel = label; }
+                const mine = m.from === currentUser.id;
+                const tick = mine ? `<span class="msg-tick seen">✓✓</span>` : '';
+                html += `<div class="msg-bubble ${mine?'msg-mine':'msg-theirs'}">
+              <div class="msg-text">${escapeHtml(m.text)}</div>
+              <div class="msg-time">${timeAgo(m.date)}${tick}</div>
+            </div>`;
+            });
+            body.innerHTML = html;
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function sendChatMsg() {
+            const input = document.getElementById('chatMsgInput');
+            const text = input.value.trim();
+            if (!text || !currentUser || !chatTarget) return;
+            const cid = getChatId(currentUser.id, chatTarget);
+            if (!db.chats[cid]) db.chats[cid] = [];
+            db.chats[cid].push({ from: currentUser.id, text, date: new Date().toISOString() });
+            markChatRead(cid, currentUser.id);
+            addNotification(chatTarget, `💬 বার্তা (${currentUser.name})`, text.slice(0, 50) + (text.length > 50 ? '…' : ''));
+            saveDB();
+            input.value = '';
+            renderChatBody();
+            renderChatList();
+            updateChatNavBadges();
+        }
+
+        function chatDateLabel(dateStr) {
+            const d = new Date(dateStr),
+                now = new Date();
+            const dOnly = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            const nOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const diff = Math.round((nOnly - dOnly) / 86400000);
+            if (diff === 0) return 'আজ';
+            if (diff === 1) return 'গতকাল';
+            return d.toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: d.getFullYear() !== now.getFullYear() ?
+                    'numeric' : undefined });
+        }
+
+        /* ============================== HOME ============================== */
+        function renderHome() {
+            const greeting = currentUser ? `স্বাগতম, <em>${currentUser.name}</em>!` : 'স্বাগতম, <em>অতিথি</em>! 👋';
+            document.getElementById('heroUserName').innerHTML = greeting;
+            const allProducts = db.products.length;
+            const totalOrders = db.orders.length;
+            const totalUsers = db.users.length;
+            const userOrders = currentUser ? db.orders.filter(o => o.buyerId === currentUser.id || o.sellerId === currentUser
+                .id).length : 0;
+            const stats = currentUser ? [
+                { icon: '🛍️', val: allProducts, label: 'মোট পণ্য', c: 'navy' },
+                { icon: '📦', val: currentUser.role === 'seller' ? db.orders.filter(o => o.sellerId === currentUser.id)
+                        .length : userOrders, label: currentUser.role === 'seller' ? 'আমার অর্ডার' : 'আমার অর্ডার',
+                    c: 'gold' },
+                { icon: '👥', val: totalUsers, label: 'মোট সদস্য', c: 'green' },
+                { icon: '⭐', val: db.products.reduce((s, p) => s + (p.rating || 0), 0) / (db.products.length || 1) |
+                        0, label: 'গড় রেটিং', c: 'red' },
+            ] : [
+                { icon: '🛍️', val: allProducts, label: 'মোট পণ্য', c: 'navy' },
+                { icon: '📦', val: totalOrders, label: 'মোট অর্ডার', c: 'gold' },
+                { icon: '👥', val: totalUsers, label: 'মোট সদস্য', c: 'green' },
+                { icon: '🏪', val: db.products.filter(p => p.sellerId).length, label: 'সক্রিয় বিক্রেতা', c: 'red' },
+            ];
+            document.getElementById('homeStats').innerHTML = stats.map(s =>
+                `<div class="stat-card ${s.c}"><div class="stat-icon">${s.icon}</div><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`
+                ).join('');
+            const notices = db.notices.slice(-3).reverse();
+            document.getElementById('homeNotices').innerHTML = notices.length ? notices.map(n =>
+                `<div class="notice-card notice-${n.type}"><span style="flex-shrink:0;font-size:16px;">${noticeIcon(n.type)}</span><div><div style="font-weight:700;font-size:13px;">${n.title}</div><div style="font-size:12px;margin-top:2px;">${n.body}</div><div class="notice-date">${new Date(n.date).toLocaleDateString('bn-BD')}</div></div></div>`
+                ).join('') : '<div class="text-sm text-muted">কোনো নোটিশ নেই।</div>';
+            const cats = db.settings.categories || DEFAULT_SETTINGS.categories;
+            const catColors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444', '#06b6d4', '#84cc16', '#f97316', '#ec4899'];
+            document.getElementById('homeCategoryCards').innerHTML = cats.slice(0, 6).map((c, i) =>
+                `<div class="category-card" onclick="goCategory('${c}')">
+              <div class="category-icon" style="background:${catColors[i%catColors.length]}20;color:${catColors[i%catColors.length]};">${['📱','💻','🏠','💄','⚽','🚗','🧸','📚','🛠️'][i%9]}</div>
+              <h3>${c}</h3>
+            </div>`
+            ).join('');
+            const homeProds = db.products.slice(0, 4);
+            document.getElementById('homeProducts').innerHTML = homeProds.map(p => productCardHtml(p, true)).join('');
+        }
+
+        /* ============================== PRODUCTS ============================== */
+        function renderProducts() {
+            const q = (document.getElementById('productSearch')?.value || '').toLowerCase();
+            const cats = ['all', ...db.settings.categories];
+            document.getElementById('productsFilter').innerHTML = cats.map(c =>
+                `<div class="filter-chip ${c===activeProductFilter?'active':''}" onclick="activeProductFilter='${c}';renderProducts();">${c==='all'?'সব পণ্য':c}</div>`
+                ).join('');
+            let products = db.products.filter(p => {
+                if (activeProductFilter !== 'all' && p.category !== activeProductFilter) return false;
+                if (q && !p.name.toLowerCase().includes(q) && !p.category.toLowerCase().includes(q)) return false;
+                return true;
+            });
+            document.getElementById('productCount').textContent = products.length + 'টি';
+            document.getElementById('productsContainer').innerHTML = products.length ? products.map(p => productCardHtml(p,
+                true)).join('') :
+                '<div class="text-center text-muted" style="padding:30px;">কোনো পণ্য পাওয়া যায়নি।</div>';
+        }
+
+        function productCardHtml(p, showSeller) {
+            const seller = db.users.find(u => u.id === p.sellerId);
+            const discount = p.discount || 0;
+            const price = p.price || 0;
+            const origPrice = price + (price * discount / 100);
+            const stars = '★'.repeat(Math.round(p.rating || 0)) + '☆'.repeat(5 - Math.round(p.rating || 0));
+            const inCart = currentUser && (db.cart[currentUser.id] || []).some(i => i.productId === p.id);
+            const inWishlist = currentUser && (db.wishlist[currentUser.id] || []).includes(p.id);
+            return `<div class="product-card" onclick="viewProduct('${p.id}')">
+            ${p.discount>0?`<div class="product-badge hot">${p.discount}% ছাড়</div>`:''}
+            ${p.discount===0?'<div class="product-badge new">নতুন</div>':''}
+            <div class="product-image">
+              <img src="${p.image||'https://via.placeholder.com/300x300/0f6b3e/fff?text=সেরা+বাজার'}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x300/0f6b3e/fff?text=সেরা+বাজার'">
+              <div class="product-actions-overlay">
+                <div class="product-action-btn ${inWishlist?'active':''}" onclick="event.stopPropagation();toggleWishlist('${p.id}')" title="উইশলিস্ট">
+                  <i class="fas fa-heart"></i>
+                </div>
+                <div class="product-action-btn" onclick="event.stopPropagation();viewProduct('${p.id}')" title="দেখুন">
+                  <i class="fas fa-eye"></i>
+                </div>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-category">${p.category}</div>
+              <div class="product-title">${p.name}</div>
+              <div class="product-price-row">
+                <span class="product-price">৳${price.toLocaleString()}</span>
+                ${discount>0?`<span class="product-price-old">৳${Math.round(origPrice).toLocaleString()}</span>`:''}
+                ${discount>0?`<span class="product-discount">-${discount}%</span>`:''}
+              </div>
+              <div class="product-rating">
+                <span class="stars">${stars}</span>
+                <span>(${p.reviewCount||0})</span>
+              </div>
+              ${showSeller && seller ? `<div class="product-seller"><i class="fas fa-store"></i> ${seller.name}</div>` : ''}
+              <button class="product-add-btn" onclick="event.stopPropagation();addToCart('${p.id}')">
+                <i class="fas fa-shopping-cart"></i> ${inCart?'কার্টে আছে':'কার্টে যোগ'}
+              </button>
+            </div>
+          </div>`;
+        }
+
+        function viewProduct(id) {
+            const p = db.products.find(x => x.id === id);
+            if (!p) return;
+            const seller = db.users.find(u => u.id === p.sellerId);
+            const stars = '★'.repeat(Math.round(p.rating || 0)) + '☆'.repeat(5 - Math.round(p.rating || 0));
+            const html = `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <img src="${p.image||'https://via.placeholder.com/300x300/0f6b3e/fff?text=সেরা+বাজার'}" style="width:100%;border-radius:var(--radius);aspect-ratio:1/1;object-fit:cover;">
+              <div>
+                <div style="font-size:10px;color:var(--gray-400);font-weight:600;">${p.category}</div>
+                <div style="font-weight:900;font-size:1.2rem;margin:4px 0;">${p.name}</div>
+                <div style="font-size:1.3rem;font-weight:900;color:var(--primary);">৳${p.price.toLocaleString()}</div>
+                ${p.discount>0?`<div style="font-size:12px;color:var(--green);">ছাড়: ${p.discount}%</div>`:''}
+                <div style="font-size:12px;color:var(--gray-400);">স্টক: ${p.stock||0}</div>
+                <div class="product-rating" style="margin:4px 0;"><span class="stars">${stars}</span> <span>(${p.reviewCount||0})</span></div>
+                ${seller?`<div style="font-size:12px;color:var(--gray-400);"><i class="fas fa-store"></i> ${seller.name}</div>`:''}
+                <div style="font-size:12px;margin:8px 0;color:var(--gray-600);">${p.desc||''}</div>
+                <button class="btn btn-navy btn-block" onclick="addToCart('${p.id}');closeModal('productViewModal')">🛒 কার্টে যোগ</button>
+                <button class="btn btn-ghost btn-block" style="margin-top:6px;" onclick="closeModal('productViewModal')">বন্ধ</button>
+              </div>
+            </div>
+          `;
+            let modal = document.getElementById('productViewModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'productViewModal';
+                modal.className = 'modal-overlay';
+                modal.innerHTML =
+                    `<div class="modal-content"><div class="modal-title">পণ্য বিস্তারিত <span class="modal-close" onclick="closeModal('productViewModal')">✕</span></div><div id="productViewBody"></div></div>`;
+                document.body.appendChild(modal);
+                modal.addEventListener('click', e => { if (e.target === modal) closeModal('productViewModal'); });
+            }
+            document.getElementById('productViewBody').innerHTML = html;
+            modal.classList.add('open');
+        }
+
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('open');
+        }
+
+        /* ============================== CART ============================== */
+        function addToCart(productId) {
+            if (!currentUser) { showAuthPage(); return; }
+            if (!db.cart[currentUser.id]) db.cart[currentUser.id] = [];
+            const existing = db.cart[currentUser.id].find(i => i.productId === productId);
+            if (existing) { existing.qty = (existing.qty || 1) + 1; } else { db.cart[currentUser.id].push({ productId,
+                    qty: 1 }); }
+            saveDB();
+            toast('পণ্য কার্টে যোগ হয়েছে ✅', 'success');
+            if (document.getElementById('tab-cart').classList.contains('active')) renderCart();
+        }
+
+        function removeFromCart(productId) {
+            if (!currentUser) return;
+            db.cart[currentUser.id] = (db.cart[currentUser.id] || []).filter(i => i.productId !== productId);
+            saveDB();
+            renderCart();
+            toast('পণ্য কার্ট থেকে সরানো হয়েছে।', 'info');
+        }
+
+        function updateCartQty(productId, delta) {
+            if (!currentUser) return;
+            const items = db.cart[currentUser.id] || [];
+            const item = items.find(i => i.productId === productId);
+            if (!item) return;
+            item.qty = Math.max(1, (item.qty || 1) + delta);
+            if (item.qty === 0) { removeFromCart(productId); return; }
+            saveDB();
+            renderCart();
+        }
+
+        function renderCart() {
+            const el = document.getElementById('cartContainer');
+            if (!currentUser) { el.innerHTML =
+                    '<div class="text-center text-muted" style="padding:30px;">কার্ট দেখতে লগইন করুন।</div>'; return; }
+            const items = db.cart[currentUser.id] || [];
+            if (!items.length) { el.innerHTML =
+                    '<div class="text-center text-muted" style="padding:30px;">আপনার কার্ট খালি। 🛒</div>'; return; }
+            let html = '',
+                total = 0;
+            items.forEach(item => {
+                const p = db.products.find(x => x.id === item.productId);
+                if (!p) return;
+                const subtotal = p.price * item.qty;
+                total += subtotal;
+                html += `<div class="cart-item">
+              <img class="cart-item-img" src="${p.image||'https://via.placeholder.com/64x64/0f6b3e/fff?text=সেরা'}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/64x64/0f6b3e/fff?text=সেরা'">
+              <div class="cart-item-info">
+                <div class="name">${p.name}</div>
+                <div class="price">৳${p.price.toLocaleString()} × ${item.qty} = ৳${subtotal.toLocaleString()}</div>
+              </div>
+              <div class="cart-item-qty">
+                <button onclick="updateCartQty('${p.id}',-1)">−</button>
+                <span>${item.qty}</span>
+                <button onclick="updateCartQty('${p.id}',1)">+</button>
+                <button class="btn btn-sm btn-red" onclick="removeFromCart('${p.id}')" style="margin-left:8px;">✕</button>
+              </div>
+            </div>`;
+            });
+            html += `<div class="cart-summary">
+            <div class="cart-summary-row"><span>মোট</span><span>৳${total.toLocaleString()}</span></div>
+            <div class="cart-summary-row total"><span>পরিশোধযোগ্য</span><span>৳${total.toLocaleString()}</span></div>
+            <button class="btn btn-gold btn-block" onclick="checkout()">✅ অর্ডার নিশ্চিত করুন</button>
+          </div>`;
+            el.innerHTML = html;
+        }
+
+        function checkout() {
+            if (!currentUser) return;
+            const items = db.cart[currentUser.id] || [];
+            if (!items.length) { toast('কার্ট খালি!', 'warning'); return; }
+            const orderItems = items.map(item => {
+                const p = db.products.find(x => x.id === item.productId);
+                return p ? { productId: p.id, name: p.name, price: p.price, qty: item.qty, sellerId: p.sellerId } :
+                    null;
+            }).filter(Boolean);
+            if (!orderItems.length) { toast('পণ্য পাওয়া যায়নি।', 'error'); return; }
+            const total = orderItems.reduce((s, i) => s + i.price * i.qty, 0);
+            const order = {
+                id: 'ord' + Date.now(),
+                buyerId: currentUser.id,
+                sellerId: orderItems[0].sellerId,
+                items: orderItems,
+                total,
+                status: 'pending',
+                paymentStatus: 'unpaid',
+                date: new Date().toISOString(),
+                address: currentUser.address || 'ঠিকানা যোগ করুন'
+            };
+            db.orders.push(order);
+            orderItems.forEach(oi => {
+                const p = db.products.find(x => x.id === oi.productId);
+                if (p) p.stock = Math.max(0, (p.stock || 0) - oi.qty);
+            });
+            db.cart[currentUser.id] = [];
+            addNotification(currentUser.id, '📦 অর্ডার নিশ্চিত!', `অর্ডার ID: ${order.id} — মোট ৳${total}`);
+            if (order.sellerId) {
+                addNotification(order.sellerId, '📦 নতুন অর্ডার!', `অর্ডার ID: ${order.id} — ${orderItems.length}টি পণ্য`);
+            }
+            saveDB();
+            renderCart();
+            toast(`অর্ডার নিশ্চিত! ID: ${order.id}`, 'success');
+            goTab('myorders');
+        }
+
+        /* ============================== WISHLIST ============================== */
+        function toggleWishlist(productId) {
+            if (!currentUser) { showAuthPage(); return; }
+            if (!db.wishlist[currentUser.id]) db.wishlist[currentUser.id] = [];
+            const idx = db.wishlist[currentUser.id].indexOf(productId);
+            if (idx > -1) { db.wishlist[currentUser.id].splice(idx, 1);
+                toast('উইশলিস্ট থেকে সরানো হয়েছে।', 'info'); } else { db.wishlist[currentUser.id].push(productId);
+                toast('উইশলিস্টে যোগ করা হয়েছে ❤️', 'success'); }
+            saveDB();
+            if (document.getElementById('tab-wishlist').classList.contains('active')) renderWishlist();
+            if (document.getElementById('tab-products').classList.contains('active')) renderProducts();
+        }
+
+        function renderWishlist() {
+            const el = document.getElementById('wishlistContainer');
+            if (!currentUser) { el.innerHTML =
+                    '<div class="text-center text-muted" style="padding:30px;">উইশলিস্ট দেখতে লগইন করুন।</div>'; return; }
+            const ids = db.wishlist[currentUser.id] || [];
+            if (!ids.length) { el.innerHTML =
+                    '<div class="text-center text-muted" style="padding:30px;">আপনার উইশলিস্ট খালি। ❤️</div>'; return; }
+            const products = ids.map(id => db.products.find(p => p.id === id)).filter(Boolean);
+            el.innerHTML = `<div class="products-grid">${products.map(p=>productCardHtml(p,true)).join('')}</div>`;
+        }
+
+        /* ============================== MY ORDERS ============================== */
+        function renderMyOrders() {
+            if (!currentUser) return;
+            const orders = db.orders.filter(o => o.buyerId === currentUser.id).slice().reverse();
+            const tbody = document.getElementById('myOrdersBody');
+            if (!orders.length) { tbody.innerHTML =
+                    `<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--gray-400);">কোনো অর্ডার নেই।</td></tr>`; return; }
+            tbody.innerHTML = orders.map(o => `
+            <tr>
+              <td style="font-family:monospace;font-weight:700;">${o.id}</td>
+              <td>${o.items.map(i=>i.name).join(', ')}</td>
+              <td>৳${o.total.toLocaleString()}</td>
+              <td>${new Date(o.date).toLocaleDateString('bn-BD')}</td>
+              <td><span class="badge badge-${o.status}">${statusBn(o.status)}</span></td>
+              <td><span class="badge badge-${o.paymentStatus==='paid'?'paid':'unpaid'}">${o.paymentStatus==='paid'?'পরিশোধিত':'বাকি'}</span></td>
+              <td><button class="btn btn-sm btn-navy" onclick="viewOrder('${o.id}')">দেখুন</button></td>
+            </tr>
+          `).join('');
+        }
+
+        function viewOrder(id) {
+            const o = db.orders.find(x => x.id === id);
+            if (!o) return;
+            const itemsHtml = o.items.map(i =>
+                `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--gray-100);font-size:12px;"><span>${i.name} × ${i.qty}</span><span>৳${(i.price*i.qty).toLocaleString()}</span></div>`
+                ).join('');
+            const html = `
+            <div style="font-size:13px;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+                <div><span style="color:var(--gray-400);font-size:11px;">অর্ডার ID</span><br><strong>${o.id}</strong></div>
+                <div><span style="color:var(--gray-400);font-size:11px;">তারিখ</span><br><strong>${new Date(o.date).toLocaleDateString('bn-BD')}</strong></div>
+                <div><span style="color:var(--gray-400);font-size:11px;">স্ট্যাটাস</span><br><span class="badge badge-${o.status}">${statusBn(o.status)}</span></div>
+                <div><span style="color:var(--gray-400);font-size:11px;">পেমেন্ট</span><br><span class="badge badge-${o.paymentStatus==='paid'?'paid':'unpaid'}">${o.paymentStatus==='paid'?'পরিশোধিত':'বাকি'}</span></div>
+              </div>
+              <div style="font-weight:700;margin:8px 0 4px;">পণ্য</div>
+              ${itemsHtml}
+              <div style="display:flex;justify-content:space-between;font-weight:900;font-size:1.1rem;padding-top:8px;border-top:2px solid var(--gray-200);margin-top:8px;">
+                <span>মোট</span><span>৳${o.total.toLocaleString()}</span>
+              </div>
+            </div>
+          `;
+            let modal = document.getElementById('orderViewModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'orderViewModal';
+                modal.className = 'modal-overlay';
+                modal.innerHTML =
+                    `<div class="modal-content"><div class="modal-title">📦 অর্ডার বিস্তারিত <span class="modal-close" onclick="closeModal('orderViewModal')">✕</span></div><div id="orderViewBody"></div></div>`;
+                document.body.appendChild(modal);
+                modal.addEventListener('click', e => { if (e.target === modal) closeModal('orderViewModal'); });
+            }
+            document.getElementById('orderViewBody').innerHTML = html;
+            modal.classList.add('open');
+        }
+
+        /* ============================== SELLER DASHBOARD ============================== */
+        function renderSellerDashboard() {
+            if (!currentUser || (currentUser.role !== 'seller' && currentUser.role !== 'admin')) return;
+            const myProducts = db.products.filter(p => p.sellerId === currentUser.id);
+            const myOrders = db.orders.filter(o => o.sellerId === currentUser.id);
+            const totalSales = myOrders.reduce((s, o) => s + o.total, 0);
+            document.getElementById('sellerStats').innerHTML = `
+            <div class="seller-stat"><div class="icon">📦</div><div class="val">${myProducts.length}</div><div class="label">আমার পণ্য</div></div>
+            <div class="seller-stat"><div class="icon">🛒</div><div class="val">${myOrders.length}</div><div class="label">মোট অর্ডার</div></div>
+            <div class="seller-stat"><div class="icon">💰</div><div class="val">৳${totalSales.toLocaleString()}</div><div class="label">মোট বিক্রয়</div></div>
+            <div class="seller-stat"><div class="icon">⭐</div><div class="val">${(myProducts.reduce((s,p)=>s+(p.rating||0),0)/(myProducts.length||1)).toFixed(1)}</div><div class="label">গড় রেটিং</div></div>
+          `;
+            document.getElementById('sellerProductsGrid').innerHTML = myProducts.length ? myProducts.map(p =>
+                productCardHtml(p, false)).join('') :
+                '<div class="text-center text-muted" style="padding:20px;">আপনার কোনো পণ্য নেই। নতুন পণ্য যোগ করুন।</div>';
+            const ordersBody = document.getElementById('sellerOrdersBody');
+            if (!myOrders.length) { ordersBody.innerHTML =
+                    `<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">কোনো অর্ডার নেই।</td></tr>`; return; }
+            ordersBody.innerHTML = myOrders.slice().reverse().map(o => `
+            <tr>
+              <td style="font-family:monospace;font-weight:700;">${o.id}</td>
+              <td>${o.items.map(i=>i.name).join(', ')}</td>
+              <td>${db.users.find(u=>u.id===o.buyerId)?.name||'ক্রেতা'}</td>
+              <td>${o.items.reduce((s,i)=>s+i.qty,0)}</td>
+              <td>৳${o.total.toLocaleString()}</td>
+              <td><span class="badge badge-${o.status}">${statusBn(o.status)}</span></td>
+            </tr>
+          `).join('');
+        }
+
+        function sellerTab(id, btn) {
+            sellerActiveTab = id;
+            document.querySelectorAll('.seller-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('#tab-sell .admin-inner-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.remove('hidden');
+            if (btn) btn.classList.add('active');
+        }
+
+        function saveProduct() {
+            const name = document.getElementById('prodName').value.trim();
+            const category = document.getElementById('prodCategory').value;
+            const price = Number(document.getElementById('prodPrice').value);
+            const discount = Number(document.getElementById('prodDiscount').value) || 0;
+            const stock = Number(document.getElementById('prodStock').value) || 0;
+            const image = document.getElementById('prodImage').value.trim();
+            const desc = document.getElementById('prodDesc').value.trim();
+            const msg = document.getElementById('sellProductMsg');
+            if (!name || !price) { msg.textContent = '⚠️ নাম ও দাম আবশ্যক।';
+                msg.style.color = 'var(--red)'; return; }
+            const data = { name, category, price, discount, stock, image: image ||
+                    'https://via.placeholder.com/300x300/0f6b3e/fff?text=সেরা', desc, sellerId: currentUser.id,
+                rating: 0, reviewCount: 0, createdAt: new Date().toISOString() };
+            if (editingProductId) {
+                const p = db.products.find(x => x.id === editingProductId);
+                if (p) { Object.assign(p, data);
+                    toast('পণ্য আপডেট হয়েছে ✅', 'success'); }
+                editingProductId = null;
+                document.getElementById('sellProductMsg').textContent = '';
+                document.querySelector('#sellAdd .btn-navy').textContent = '💾 পণ্য সংরক্ষণ করুন';
+            } else {
+                const id = 'p' + Date.now();
+                db.products.push({ id, ...data });
+                toast('পণ্য যোগ হয়েছে ✅', 'success');
+            }
+            saveDB();
+            renderSellerDashboard();
+            document.getElementById('prodName').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodDiscount').value = '0';
+            document.getElementById('prodStock').value = '10';
+            document.getElementById('prodImage').value = '';
+            document.getElementById('prodDesc').value = '';
+            msg.textContent = '✅ সংরক্ষিত!';
+            msg.style.color = 'var(--green)';
+            setTimeout(() => { msg.textContent = ''; }, 3000);
+        }
+
+        function editProduct(id) {
+            const p = db.products.find(x => x.id === id);
+            if (!p) return;
+            editingProductId = id;
+            document.getElementById('prodName').value = p.name;
+            document.getElementById('prodCategory').value = p.category;
+            document.getElementById('prodPrice').value = p.price;
+            document.getElementById('prodDiscount').value = p.discount || 0;
+            document.getElementById('prodStock').value = p.stock || 0;
+            document.getElementById('prodImage').value = p.image || '';
+            document.getElementById('prodDesc').value = p.desc || '';
+            document.querySelector('#sellAdd .btn-navy').textContent = '💾 আপডেট করুন';
+            sellerTab('sellAdd', document.querySelector('#tab-sell .admin-inner-tab:nth-child(2)'));
+        }
+
+        function deleteProduct(id) {
+            if (!confirm('এই পণ্য মুছে ফেলবেন?')) return;
+            db.products = db.products.filter(p => p.id !== id);
+            saveDB();
+            renderSellerDashboard();
+            toast('পণ্য মুছা হয়েছে।', 'info');
+        }
+
+        /* ============================== PROFILE ============================== */
+        function renderProfile() {
+            if (!currentUser) return;
+            const u = currentUser;
+            const el = document.getElementById('profileContent');
+            el.innerHTML = `
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+              <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#fbbf24);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:var(--primary);">${u.name.charAt(0)}</div>
+              <div>
+                <div style="font-size:1.2rem;font-weight:900;">${u.name}</div>
+                <div style="font-size:12px;color:var(--gray-400);">${u.role==='admin'?'⚡ অ্যাডমিন':u.role==='seller'?'📦 বিক্রেতা':'🛍️ ক্রেতা'} ${u.verified?'✅':'⏳ যাচাই বাকি'}</div>
+                <div style="font-size:11px;color:var(--gray-400);">${u.phone} ${u.email?'| '+u.email:''}</div>
+                <div style="font-size:11px;color:var(--gray-400);">নিবন্ধন: ${new Date(u.createdAt).toLocaleDateString('bn-BD')}</div>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group"><label class="form-label">পূর্ণ নাম</label><input class="form-control" id="editName" type="text" value="${u.name}"></div>
+              <div class="form-group"><label class="form-label">ইমেইল</label><input class="form-control" id="editEmail" type="email" value="${u.email||''}"></div>
+              <div class="form-group"><label class="form-label">মোবাইল</label><input class="form-control" id="editPhone" type="tel" value="${u.phone}"></div>
+              <div class="form-group"><label class="form-label">ঠিকানা</label><input class="form-control" id="editAddress" type="text" value="${u.address||''}"></div>
+            </div>
+            <button class="btn btn-navy" onclick="saveProfile()">💾 প্রোফাইল আপডেট</button>
+            <hr style="margin:18px 0;border-color:var(--gray-100);">
+            <div style="font-weight:700;margin-bottom:10px;">🔒 পাসওয়ার্ড পরিবর্তন</div>
+            <div class="form-grid-2">
+              <div class="form-group"><label class="form-label">বর্তমান পাসওয়ার্ড</label><input class="form-control" id="oldPass" type="password"></div>
+              <div class="form-group"><label class="form-label">নতুন পাসওয়ার্ড</label><input class="form-control" id="newPass" type="password"></div>
+              <div class="form-group"><label class="form-label">নতুন পাসওয়ার্ড নিশ্চিত</label><input class="form-control" id="confPass" type="password"></div>
+            </div>
+            <button class="btn btn-gold" onclick="changeProfilePass()">🔒 পাসওয়ার্ড পরিবর্তন</button>
+          `;
+        }
+
+        function saveProfile() {
+            if (!currentUser) return;
+            const u = db.users.find(x => x.id === currentUser.id);
+            if (!u) return;
+            u.name = document.getElementById('editName').value.trim() || u.name;
+            u.email = document.getElementById('editEmail').value.trim();
+            u.phone = document.getElementById('editPhone').value.trim() || u.phone;
+            u.address = document.getElementById('editAddress').value.trim();
+            currentUser = u;
+            saveDB();
+            updateHeaderUser();
+            toast('প্রোফাইল আপডেট হয়েছে ✅', 'success');
+        }
+
+        function changeProfilePass() {
+            if (!currentUser) return;
+            const old = document.getElementById('oldPass').value;
+            const nw = document.getElementById('newPass').value;
+            const cf = document.getElementById('confPass').value;
+            const u = db.users.find(x => x.id === currentUser.id);
+            if (!u || old !== u.password) { toast('বর্তমান পাসওয়ার্ড সঠিক নয়।', 'error'); return; }
+            if (nw.length < 6) { toast('পাসওয়ার্ড কমপক্ষে ৬ অক্ষর।', 'warning'); return; }
+            if (nw !== cf) { toast('পাসওয়ার্ড মিলছে না।', 'error'); return; }
+            u.password = nw;
+            currentUser = u;
+            saveDB();
+            document.getElementById('oldPass').value = '';
+            document.getElementById('newPass').value = '';
+            document.getElementById('confPass').value = '';
+            toast('পাসওয়ার্ড পরিবর্তন হয়েছে ✅', 'success');
+        }
+
+        /* ============================== NOTICES ============================== */
+        function renderNotices() {
+            const el = document.getElementById('noticesBoard');
+            el.innerHTML = db.notices.slice().reverse().map(n =>
+                `<div class="notice-card notice-${n.type}"><span style="flex-shrink:0;font-size:18px;">${noticeIcon(n.type)}</span><div><div style="font-weight:700;font-size:14px;">${n.title}</div><div style="font-size:12.5px;margin-top:4px;">${n.body}</div><div class="notice-date">${new Date(n.date).toLocaleDateString('bn-BD')}</div></div></div>`
+                ).join('') || '<div class="text-sm text-muted">কোনো নোটিশ নেই।</div>';
+        }
+
+        /* ============================== CONTACT ============================== */
+        function sendContactMsg() {
+            const name = document.getElementById('contactName').value.trim();
+            const phone = document.getElementById('contactPhone').value.trim();
+            const msg = document.getElementById('contactMsg').value.trim();
+            if (!name || !msg) { toast('নাম ও বার্তা আবশ্যক।', 'warning'); return; }
+            const admin = db.users.find(u => u.role === 'admin');
+            if (admin) {
+                addNotification(admin.id, `📞 যোগাযোগ (${name})`, `${phone ? '📱'+phone+' ' : ''}${msg.slice(0,100)}`);
+            }
+            toast('বার্তা পাঠানো হয়েছে। আমরা শীঘ্রই যোগাযোগ করব। ✅', 'success');
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactPhone').value = '';
+            document.getElementById('contactMsg').value = '';
+        }
+
+        /* ============================== ADMIN DASHBOARD ============================== */
+        function renderAdminDashboard() {
+            if (!currentUser || currentUser.role !== 'admin') return;
+            const stats = [
+                { icon: '👥', val: db.users.length, label: 'মোট সদস্য', c: 'navy' },
+                { icon: '🛍️', val: db.products.length, label: 'মোট পণ্য', c: 'gold' },
+                { icon: '📦', val: db.orders.length, label: 'মোট অর্ডার', c: 'green' },
+                { icon: '💰', val: db.orders.reduce((s, o) => s + o.total, 0).toLocaleString(), label: 'মোট বিক্রয়', c: 'red' },
+            ];
+            document.getElementById('adminStats').innerHTML = stats.map(s =>
+                `<div class="admin-stat ${s.c}"><div class="icon">${s.icon}</div><div class="val">${s.val}</div><div class="label">${s.label}</div></div>`
+                ).join('');
+            const recent = db.orders.slice().reverse().slice(0, 5);
+            document.getElementById('adminRecentOrders').innerHTML = recent.length ?
+                `<div class="table-wrap"><table><thead><tr><th>অর্ডার ID</th><th>ক্রেতা</th><th>মোট</th><th>স্ট্যাটাস</th></tr></thead><tbody>${recent.map(o=>`<tr><td style="font-family:monospace;">${o.id}</td><td>${db.users.find(u=>u.id===o.buyerId)?.name||'ক্রেতা'}</td><td>৳${o.total}</td><td><span class="badge badge-${o.status}">${statusBn(o.status)}</span></td></tr>`).join('')}</tbody></table></div>` :
+                '<div class="text-muted text-sm">কোনো অর্ডার নেই।</div>';
+            adminTab('adminOverview', document.querySelector('#tab-admin .admin-inner-tab.active'));
+        }
+
+        function adminTab(id, btn) {
+            adminActiveTab = id;
+            document.querySelectorAll('.admin-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('#tab-admin .admin-inner-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.remove('hidden');
+            if (btn) btn.classList.add('active');
+            if (id === 'adminProducts') renderAdminProducts();
+            if (id === 'adminOrders') renderAdminOrders();
+            if (id === 'adminUsers') renderAdminUsers();
+            if (id === 'adminCategories') renderAdminCategories();
+            if (id === 'adminNotices') renderAdminNotices();
+            if (id === 'adminSettings') renderAdminSettings();
+        }
+
+        function renderAdminProducts() {
+            const q = (document.getElementById('adminProductSearch')?.value || '').toLowerCase();
+            let products = db.products;
+            if (q) products = products.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+            const tbody = document.getElementById('adminProductsBody');
+            if (!products.length) { tbody.innerHTML =
+                    `<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">কোনো পণ্য নেই।</td></tr>`; return; }
+            tbody.innerHTML = products.map((p, i) => `
+            <tr>
+              <td>${i+1}</td>
+              <td><div style="display:flex;align-items:center;gap:8px;"><img src="${p.image||'https://via.placeholder.com/40x40/0f6b3e/fff?text=সেরা'}" style="width:40px;height:40px;border-radius:6px;object-fit:cover;background:var(--gray-50);" onerror="this.src='https://via.placeholder.com/40x40/0f6b3e/fff?text=সেরা'"> ${p.name}</div></td>
+              <td>${db.users.find(u=>u.id===p.sellerId)?.name||'বিক্রেতা'}</td>
+              <td>৳${p.price}</td>
+              <td>${p.stock||0}</td>
+              <td><button class="btn btn-sm btn-navy" onclick="editProduct('${p.id}');goTab('sell');">✏️</button> <button class="btn btn-sm btn-red" onclick="deleteProduct('${p.id}')">🗑️</button></td>
+            </tr>
+          `).join('');
+        }
+
+        function renderAdminOrders() {
+            const tbody = document.getElementById('adminOrdersBody');
+            if (!db.orders.length) { tbody.innerHTML =
+                    `<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">কোনো অর্ডার নেই।</td></tr>`; return; }
+            tbody.innerHTML = db.orders.slice().reverse().map(o => `
+            <tr>
+              <td style="font-family:monospace;font-weight:700;">${o.id}</td>
+              <td>${db.users.find(u=>u.id===o.buyerId)?.name||'ক্রেতা'}</td>
+              <td>${o.items.map(i=>i.name).join(', ')}</td>
+              <td>৳${o.total.toLocaleString()}</td>
+              <td><span class="badge badge-${o.status}">${statusBn(o.status)}</span></td>
+              <td>
+                <select onchange="updateOrderStatus('${o.id}',this.value)" class="form-control" style="width:auto;padding:4px 8px;font-size:11px;display:inline;">
+                  <option value="pending" ${o.status==='pending'?'selected':''}>⏳ অপেক্ষমান</option>
+                  <option value="processing" ${o.status==='processing'?'selected':''}>🔄 প্রক্রিয়াধীন</option>
+                  <option value="approved" ${o.status==='approved'?'selected':''}>✅ অনুমোদিত</option>
+                  <option value="rejected" ${o.status==='rejected'?'selected':''}>❌ প্রত্যাখ্যাত</option>
+                </select>
+              </td>
+            </tr>
+          `).join('');
+        }
+
+        function updateOrderStatus(orderId, status) {
+            const o = db.orders.find(x => x.id === orderId);
+            if (!o) return;
+            o.status = status;
+            addNotification(o.buyerId, `📦 অর্ডার আপডেট`, `অর্ডার ${orderId} — ${statusBn(status)}`);
+            saveDB();
+            renderAdminOrders();
+            toast('অর্ডার স্ট্যাটাস আপডেট হয়েছে ✅', 'success');
+        }
+
+        function renderAdminUsers() {
+            const tbody = document.getElementById('adminUsersBody');
+            const users = db.users;
+            if (!users.length) { tbody.innerHTML =
+                    `<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">কোনো ব্যবহারকারী নেই।</td></tr>`; return; }
+            tbody.innerHTML = users.map((u, i) => `
+            <tr>
+              <td>${i+1}</td>
+              <td>${u.name}</td>
+              <td>${u.phone}</td>
+              <td>${u.role==='admin'?'⚡ অ্যাডমিন':u.role==='seller'?'📦 বিক্রেতা':'🛍️ ক্রেতা'}</td>
+              <td><span class="badge ${u.verified?'badge-approved':'badge-pending'}">${u.verified?'✅ যাচাই হয়েছে':'⏳ বাকি'}</span></td>
+              <td><button class="btn btn-sm ${u.verified?'btn-ghost':'btn-navy'}" onclick="toggleUserVerify('${u.id}')">${u.verified?'যাচাই বাতিল':'যাচাই'}</button></td>
+            </tr>
+          `).join('');
+        }
+
+        function toggleUserVerify(id) {
+            const u = db.users.find(x => x.id === id);
+            if (!u) return;
+            u.verified = !u.verified;
+            saveDB();
+            renderAdminUsers();
+            toast(u.verified ? '✅ যাচাই করা হয়েছে' : '⏳ যাচাই বাতিল', 'success');
+        }
+
+        function renderAdminCategories() {
+            const el = document.getElementById('adminCategoryList');
+            const cats = db.settings.categories || DEFAULT_SETTINGS.categories;
+            el.innerHTML = cats.map(c =>
+                `<span class="badge badge-approved" style="margin:4px;display:inline-flex;align-items:center;gap:6px;">${c} <span style="cursor:pointer;opacity:0.6;" onclick="removeCategory('${c.replace(/'/g,"\\'")}')">✕</span></span>`
+                ).join('');
+        }
+
+        function addAdminCategory() {
+            const input = document.getElementById('newCatInput');
+            const val = input.value.trim();
+            if (!val) { toast('ক্যাটাগরির নাম লিখুন।', 'warning'); return; }
+            if (!db.settings.categories) db.settings.categories = [...DEFAULT_SETTINGS.categories];
+            if (db.settings.categories.includes(val)) { toast('এই ক্যাটাগরি আগে থেকেই আছে।', 'warning'); return; }
+            db.settings.categories.push(val);
+            saveDB();
+            input.value = '';
+            renderAdminCategories();
+            toast('ক্যাটাগরি যোগ হয়েছে ✅', 'success');
+        }
+
+        function removeCategory(cat) {
+            if (!confirm(`"${cat}" ক্যাটাগরি মুছবেন?`)) return;
+            if (db.products.some(p => p.category === cat)) { toast('এই ক্যাটাগরিতে পণ্য আছে, আগে সেগুলোর ক্যাটাগরি পরিবর্তন করুন।',
+                'warning'); return; }
+            db.settings.categories = (db.settings.categories || []).filter(c => c !== cat);
+            saveDB();
+            renderAdminCategories();
+            toast('ক্যাটাগরি মুছা হয়েছে।', 'info');
+        }
+
+        function renderAdminNotices() {
+            const el = document.getElementById('adminNoticeList');
+            el.innerHTML = db.notices.slice().reverse().map(n =>
+                `<div class="notice-card notice-${n.type}" style="position:relative;">
+              <span style="flex-shrink:0;font-size:18px;">${noticeIcon(n.type)}</span>
+              <div style="flex:1;">
+                <div style="font-weight:700;font-size:13px;">${n.title}</div>
+                <div style="font-size:12px;margin-top:3px;">${n.body}</div>
+                <div class="notice-date">${new Date(n.date).toLocaleDateString('bn-BD')}</div>
+              </div>
+              <button class="btn btn-sm btn-red" onclick="deleteNotice('${n.id}')">🗑️</button>
+            </div>`
+                ).join('') || '<div class="text-muted text-sm">কোনো নোটিশ নেই।</div>';
+        }
+
+        function addAdminNotice() {
+            const title = document.getElementById('noticeTitle').value.trim();
+            const body = document.getElementById('noticeBody').value.trim();
+            const type = document.getElementById('noticeType').value;
+            if (!title || !body) { toast('শিরোনাম ও বিবরণ আবশ্যক।', 'warning'); return; }
+            db.notices.push({ id: 'n' + Date.now(), title, body, type, date: new Date().toISOString() });
+            saveDB();
+            document.getElementById('noticeTitle').value = '';
+            document.getElementById('noticeBody').value = '';
+            renderAdminNotices();
+            toast('নোটিশ প্রকাশিত ✅', 'success');
+        }
+
+        function deleteNotice(id) {
+            if (!confirm('নোটিশ মুছবেন?')) return;
+            db.notices = db.notices.filter(n => n.id !== id);
+            saveDB();
+            renderAdminNotices();
+            toast('নোটিশ মুছা হয়েছে।', 'info');
+        }
+
+        function renderAdminSettings() {
+            const s = db.settings;
+            document.getElementById('setSiteName').value = s.siteName || '';
+            document.getElementById('setTagline').value = s.tagline || '';
+            document.getElementById('setPhone').value = s.phone || '';
+            document.getElementById('setEmail').value = s.email || '';
+        }
+
+        function saveSiteSettings() {
+            db.settings.siteName = document.getElementById('setSiteName').value.trim() || db.settings.siteName;
+            db.settings.tagline = document.getElementById('setTagline').value.trim() || db.settings.tagline;
+            db.settings.phone = document.getElementById('setPhone').value.trim() || db.settings.phone;
+            db.settings.email = document.getElementById('setEmail').value.trim() || db.settings.email;
+            saveDB();
+            applySettings();
+            toast('সেটিংস সংরক্ষিত ✅', 'success');
+        }
+
+        function applySettings() {
+            const s = db.settings;
+            const tag = document.getElementById('brandTagline');
+            if (tag) tag.textContent = s.tagline || 'বাংলাদেশের বিশ্বস্ত মার্কেটপ্লেস';
+            const hero = document.getElementById('heroSubText');
+            if (hero) hero.textContent = s.heroSubtitle || s.tagline || 'সেরা বাজার — বিশ্বস্ত মার্কেটপ্লেস';
+            const about = document.getElementById('footerAboutText');
+            if (about) about.textContent = s.aboutText || 'বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস।';
+            const disc = document.getElementById('footerDisclaimerText');
+            if (disc) disc.textContent = s.footerNote || '';
+            document.title = (s.siteName || 'সেরা বাজার') + ' — ' + (s.tagline || 'বাংলাদেশের বিশ্বস্ত অনলাইন মার্কেটপ্লেস');
+        }
+
+        function exportAllData() {
+            const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sera_bazar_backup_' + Date.now() + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            toast('ব্যাকআপ ডাউনলোড হচ্ছে 💾', 'success');
+        }
+
+        /* ============================== THEME ============================== */
+        function initTheme() {
+            const saved = localStorage.getItem('sera_bazar_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const dark = saved ? saved === 'dark' : prefersDark;
+            setTheme(dark, true);
+        }
+
+        function toggleTheme() {
+            setTheme(!document.body.classList.contains('dark-mode'));
+        }
+
+        function setTheme(dark, silent) {
+            document.body.classList.toggle('dark-mode', dark);
+            const btn = document.getElementById('themeToggle');
+            if (btn) btn.textContent = dark ? '☀️' : '🌙';
+            localStorage.setItem('sera_bazar_theme', dark ? 'dark' : 'light');
+            if (!silent) toast(dark ? 'ডার্ক মোড চালু 🌙' : 'লাইট মোড চালু ☀️', 'info');
+        }
+
+        /* ============================== UTILITIES ============================== */
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str == null ? '' : String(str);
+            return div.innerHTML;
+        }
+
+        function statusBn(s) {
+            const map = { pending: '⏳ অপেক্ষমান', processing: '🔄 প্রক্রিয়াধীন', approved: '✅ অনুমোদিত',
+            rejected: '❌ প্রত্যাখ্যাত' };
+            return map[s] || s;
+        }
+
+        function noticeIcon(t) {
+            const map = { info: 'ℹ️', warning: '⚠️', success: '✅', danger: '🚨' };
+            return map[t] || '📢';
+        }
+
+        function timeAgo(date) {
+            const d = Date.now() - new Date(date).getTime();
+            if (d < 60000) return 'এইমাত্র';
+            if (d < 3600000) return `${Math.floor(d/60000)} মিনিট আগে`;
+            if (d < 86400000) return `${Math.floor(d/3600000)} ঘণ্টা আগে`;
+            return new Date(date).toLocaleDateString('bn-BD');
+        }
+
+        function toast(msg, type = 'info') {
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+            const container = document.getElementById('toastContainer');
+            const el = document.createElement('div');
+            el.className = `toast ${type}`;
+            el.innerHTML = `<span class="toast-icon">${icons[type]}</span>${msg}`;
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 3500);
+        }
+
+        function globalSearchFn() {
+            const q = document.getElementById('globalSearch').value.trim();
+            if (q.length > 1) {
+                goTab('products');
+                document.getElementById('productSearch').value = q;
+                renderProducts();
+            }
+        }
+
+        /* ============================== BACK TO TOP ============================== */
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (btn) btn.classList.toggle('show', window.scrollY > 400);
+        });
+
+        /* ============================== INIT ============================== */
+        (function init() {
+            loadDB();
+            initTheme();
+            restoreSession();
+            applySettings();
+
+            const dateEl = document.getElementById('utilDate');
+            if (dateEl) dateEl.textContent = new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'long',
+                day: 'numeric', weekday: 'long' });
+
+            const bar = document.getElementById('loadBar');
+            const msgs = ['প্ল্যাটফর্ম চালু হচ্ছে...', 'ডেটা লোড হচ্ছে...', 'সেরা বাজার প্রস্তুত!'];
+            let mi = 0;
+            const msgEl = document.getElementById('loadMsg');
+            const interval = setInterval(() => { if (msgEl && mi < msgs.length) msgEl.textContent = msgs[mi++]; }, 700);
+
+            setTimeout(() => bar.style.width = '100%', 100);
+            setTimeout(() => {
+                clearInterval(interval);
+                document.getElementById('loadingScreen').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    document.getElementById('appShell').classList.add('show');
+
+                    buildNav();
+                    buildBottomNav();
+                    updateHeaderUser();
+                    updateNotifBadge();
+                    updateChatNavBadges();
+
+                    if (currentUser) {
+                        if (currentUser.role === 'admin') goTab('admin');
+                        else if (currentUser.role === 'seller') goTab('sell');
+                        else goTab('home');
+                    } else {
+                        goTab('home');
+                    }
+
+                    setInterval(() => {
+                        if (currentUser) {
+                            updateChatNavBadges();
+                            if (document.getElementById('tab-chat').classList.contains('active')) {
+                                renderChatList();
+                                if (chatTarget) renderChatBody();
+                            }
+                        }
+                    }, 5000);
+
+                    toast('সেরা বাজারে স্বাগতম! 🛒', 'success');
+                }, 600);
+            }, 2800);
+        })();
+
+        // Expose functions globally
+        window.goTab = goTab;
+        window.goCategory = goCategory;
+        window.renderProducts = renderProducts;
+        window.renderCart = renderCart;
+        window.renderWishlist = renderWishlist;
+        window.renderMyOrders = renderMyOrders;
+        window.renderSellerDashboard = renderSellerDashboard;
+        window.renderChatList = renderChatList;
+        window.renderProfile = renderProfile;
+        window.renderNotices = renderNotices;
+        window.renderAdminDashboard = renderAdminDashboard;
+        window.adminTab = adminTab;
+        window.sellerTab = sellerTab;
+        window.addToCart = addToCart;
+        window.removeFromCart = removeFromCart;
+        window.updateCartQty = updateCartQty;
+        window.toggleWishlist = toggleWishlist;
+        window.viewProduct = viewProduct;
+        window.editProduct = editProduct;
+        window.deleteProduct = deleteProduct;
+        window.saveProduct = saveProduct;
+        window.selectChat = selectChat;
+        window.sendChatMsg = sendChatMsg;
+        window.toggleTheme = toggleTheme;
+        window.showAuthPage = showAuthPage;
+        window.hideAuthPage = hideAuthPage;
+        window.switchAuthTab = switchAuthTab;
+        window.setRegRole = setRegRole;
+        window.doLogin = doLogin;
+        window.doAdminLogin = doAdminLogin;
+        window.doRegister = doRegister;
+        window.doLogout = doLogout;
+        window.toggleUserMenu = toggleUserMenu;
+        window.toggleNotifPanel = toggleNotifPanel;
+        window.markNotifRead = markNotifRead;
+        window.markAllRead = markAllRead;
+        window.togglePass = togglePass;
+        window.checkout = checkout;
+        window.viewOrder = viewOrder;
+        window.saveProfile = saveProfile;
+        window.changeProfilePass = changeProfilePass;
+        window.sendContactMsg = sendContactMsg;
+        window.globalSearchFn = globalSearchFn;
+        window.closeModal = closeModal;
+        window.toggleUserVerify = toggleUserVerify;
+        window.addAdminCategory = addAdminCategory;
+        window.removeCategory = removeCategory;
+        window.addAdminNotice = addAdminNotice;
+        window.deleteNotice = deleteNotice;
+        window.saveSiteSettings = saveSiteSettings;
+        window.exportAllData = exportAllData;
+        window.updateOrderStatus = updateOrderStatus;
+    </script>
+</body>
+</html>
